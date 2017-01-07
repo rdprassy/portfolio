@@ -21,7 +21,7 @@ a.navy-link {
   color: #1ab394;
   text-decoration: none;
 }
-a.navy-link:hover {
+a.navy-link:hover {eader
   color: #17a185;
 }
 section p {
@@ -153,8 +153,14 @@ h1 {
   background: url('../images/header_one.jpg') 50% 0 no-repeat;
 }
 .header-back.two {
-  background: url('../images/rdcover.jpg') 50% 0 no-repeat;
+  background: url('../images/cropped.jpg') 50% 0 no-repeat;
 }
+
+a.carousel-control {
+    position: absolute;
+    top: 50%;
+}
+
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */
