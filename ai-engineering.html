@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A public-safe AI engineering case study by rdprassy covering enterprise analytics, retrieval-augmented generation, multi-agent reliability, evaluation, and system design.">
+  <link rel="canonical" href="https://www.rdprassy.com/ai-engineering.html">
+  <title>Applied AI Engineering Case Study | rdprassy</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Applied AI Engineering: From Enterprise Knowledge to Reliable Action",
+    "author": {
+      "@type": "Person",
+      "name": "Devi Prasad Choudhary Ratnala",
+      "url": "https://www.rdprassy.com/"
+    },
+    "url": "https://www.rdprassy.com/ai-engineering.html",
+    "about": ["Retrieval-augmented generation", "Multi-agent systems", "Enterprise analytics", "AI evaluation"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero ai-case-hero">
+      <div class="wrap page-hero__grid">
+        <div>
+          <div class="breadcrumb"><a href="index.html">Home</a> / Applied AI</div>
+          <span class="kicker">Flagship engineering case study</span>
+          <h1 class="page-title">From enterprise knowledge to reliable AI action.</h1>
+        </div>
+        <div>
+          <p class="page-lead">A public-safe view of three related systems: decision-support analytics, retrieval-grounded answers, and agent-assisted operational triage.</p>
+          <div class="hero-actions"><a class="button button--primary" href="ai-lab.html" data-track="ai_lab_open">Open the live retrieval lab ↗</a><a class="button" href="engineering-artifacts.html">Inspect artifacts</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="impact-note">
+          <strong>Evidence policy</strong>
+          <p>Usage counts below are reported scale from the supplied professional résumé. Percentage improvements are explicitly labeled as estimates. Internal data, prompts, infrastructure details, and confidential business logic are intentionally anonymized.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-strip" aria-label="Applied AI highlights">
+      <div class="wrap proof-grid">
+        <div class="proof"><strong>5+ accounts</strong><span>reported analytics coverage</span></div>
+        <div class="proof"><strong>≈1,500 docs</strong><span>reported retrieval corpus</span></div>
+        <div class="proof"><strong>300+ / month</strong><span>reported user questions</span></div>
+        <div class="proof"><strong>20+ pipelines</strong><span>reported agent monitoring scope</span></div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Three systems, one operating model</span>
+            <h2>Ground the model. Constrain the action. Measure the result.</h2>
+            <p>The useful pattern is not “add a chatbot.” It is to connect trusted context, explicit tools, evaluation, and human ownership around a clear workflow.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="card__icon">01</span>
+            <h3>Retail360 analytics</h3>
+            <p>AI-assisted analysis for approximately 50 sales and operations stakeholders across 5+ retail accounts, designed to shorten the path from data to decision.</p>
+            <div class="evidence-line"><span>Estimated impact</span><strong>25% faster analytics turnaround</strong></div>
+          </article>
+          <article class="card">
+            <span class="card__icon">02</span>
+            <h3>Document intelligence</h3>
+            <p>A retrieval workflow indexing approximately 1,500 uploaded documents and supporting 300+ monthly questions with context-grounded answers.</p>
+            <div class="evidence-line"><span>Estimated impact</span><strong>35% less research time</strong></div>
+          </article>
+          <article class="card">
+            <span class="card__icon">03</span>
+            <h3>Multi-agent reliability</h3>
+            <p>Agents monitoring 20+ data pipelines and triaging approximately 50 failures per month, with alerts that keep people in control of recovery.</p>
+            <div class="evidence-line"><span>Reported impact</span><strong>10% lower incident response time</strong></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rag-case-study">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Deep dive · Retrieval-augmented generation</span>
+            <h2>Designing answers that can point back to evidence.</h2>
+            <p>The RAG workflow treats retrieval quality, citation traceability, access boundaries, and fallback behavior as product requirements—not implementation details.</p>
+          </div>
+          <a class="button" href="ai-lab.html" data-track="ai_lab_open">Try the transparent demo</a>
+        </div>
+
+        <div class="architecture-card">
+          <div class="architecture-card__header">
+            <div><span class="kicker">Sanitized system map</span><h3>Knowledge-to-answer flow</h3></div>
+            <span class="architecture-card__legend">Human checkpoint at every consequential action</span>
+          </div>
+          <div class="architecture-flow" role="img" aria-label="Documents flow through access control, parsing and chunking, retrieval, grounded generation, evaluation and observability, then to the user">
+            <div class="architecture-node"><span>01</span><strong>Knowledge sources</strong><small>Approved documents and structured data</small></div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node"><span>02</span><strong>Ingestion</strong><small>Access checks, parsing, chunking, metadata</small></div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node architecture-node--accent"><span>03</span><strong>Retrieval</strong><small>Semantic search, filters, reranking</small></div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node"><span>04</span><strong>Grounded response</strong><small>Prompt contract, citations, abstention</small></div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node"><span>05</span><strong>Evaluation loop</strong><small>Quality, latency, cost, feedback</small></div>
+          </div>
+          <div class="architecture-rails">
+            <span>Identity &amp; authorization</span><span>PII and content controls</span><span>Trace IDs and observability</span><span>Human escalation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--green">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Engineering decisions</span>
+            <h2>The architecture is the set of tradeoffs.</h2>
+          </div>
+        </div>
+        <div class="decision-grid">
+          <article class="decision">
+            <span class="decision__label">Chunking</span>
+            <h3>Preserve meaning before chasing size.</h3>
+            <p>Split on document structure where possible, retain source metadata, and test overlap against retrieval accuracy rather than selecting a universal token count.</p>
+          </article>
+          <article class="decision">
+            <span class="decision__label">Retrieval</span>
+            <h3>Combine similarity with business filters.</h3>
+            <p>Semantic relevance cannot override access control, freshness, document status, account boundaries, or known source quality.</p>
+          </article>
+          <article class="decision">
+            <span class="decision__label">Generation</span>
+            <h3>Make abstention a valid outcome.</h3>
+            <p>The answer contract requires evidence, exposes citations, and declines when retrieved context is insufficient instead of filling the gap with confidence.</p>
+          </article>
+          <article class="decision">
+            <span class="decision__label">Operations</span>
+            <h3>Observe the chain, not only the model.</h3>
+            <p>Trace retrieval, token use, latency, user feedback, and failure categories so the team can distinguish model, data, prompt, and infrastructure problems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Evaluation contract</span>
+            <h2>Quality is a release decision.</h2>
+            <p>A credible AI feature needs repeatable checks before rollout and feedback signals after it reaches users.</p>
+          </div>
+        </div>
+        <div class="evaluation-grid">
+          <article><strong>Retrieval</strong><span>Hit rate · Recall@k · reranker lift · access-filter correctness</span></article>
+          <article><strong>Answer</strong><span>Groundedness · citation coverage · completeness · abstention quality</span></article>
+          <article><strong>System</strong><span>p95 latency · token cost · failure rate · cache behavior</span></article>
+          <article><strong>Product</strong><span>Task completion · feedback · escalation rate · time saved</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Inspect the work</span>
+            <h2>From polished claim to inspectable artifact.</h2>
+            <p>The demo and documents below use sanitized portfolio data, but preserve the engineering decisions that matter in a production system.</p>
+          </div>
+        </div>
+        <div class="project-list">
+          <a class="project-row" href="ai-lab.html" data-track="ai_lab_open"><span class="project-row__index">01</span><span class="project-row__title">Retrieval Systems Lab</span><span class="project-row__copy">Run queries, inspect ranked chunks, tune thresholds, and see evaluation feedback in the browser.</span><span class="project-row__arrow">↗</span></a>
+          <a class="project-row" href="artifacts/rag-api-openapi.yaml" target="_blank" rel="noopener"><span class="project-row__index">02</span><span class="project-row__title">API contract</span><span class="project-row__copy">A sanitized OpenAPI contract for ingestion, retrieval, answers, feedback, and health checks.</span><span class="project-row__arrow">↗</span></a>
+          <a class="project-row" href="artifacts/rag-evaluation-checklist.md" target="_blank" rel="noopener"><span class="project-row__index">03</span><span class="project-row__title">Evaluation checklist</span><span class="project-row__copy">Release criteria spanning data, retrieval, groundedness, security, latency, cost, and operations.</span><span class="project-row__arrow">↗</span></a>
+          <a class="project-row" href="artifacts/incident-retrospective-template.md" target="_blank" rel="noopener"><span class="project-row__index">04</span><span class="project-row__title">Incident retrospective</span><span class="project-row__copy">A reusable template that connects containment, root cause, corrective action, and learning.</span><span class="project-row__arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap"><div class="cta"><h2>Want to inspect the retrieval behavior yourself?</h2><p>The live lab keeps every step visible: query terms, ranked evidence, score thresholds, citations, and evaluation results.</p><div class="button-row"><a class="button button--light" href="ai-lab.html" data-track="ai_lab_open">Launch the lab ↗</a><a class="button button--light" href="resume.html">AI-focused résumé</a></div></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Applied AI engineering grounded in product outcomes, evidence, and operational ownership.</p></div>
+        <div class="footer-col"><strong>Explore</strong><a href="ai-lab.html">AI Lab</a><a href="projects.html">Projects</a><a href="engineering-artifacts.html">Artifacts</a></div>
+        <div class="footer-col"><strong>Proof</strong><a href="resume.html">Résumés</a><a href="skills.html#ai">AI skills</a><a href="certifications.html">Credentials</a></div>
+        <div class="footer-col"><strong>Connect</strong><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.linkedin.com/in/rdprassy" target="_blank" rel="noopener">LinkedIn ↗</a><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Public-safe case study · Hyderabad, India</span></div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>

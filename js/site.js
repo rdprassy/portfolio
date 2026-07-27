@@ -207,9 +207,22 @@
 
   function enrichNavigation() {
     document.querySelectorAll("[data-site-nav]").forEach(function (nav) {
+      const notesLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
+        return link.getAttribute("href") === "notes.html";
+      });
       const legacyLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
         return link.getAttribute("href") === "index_rdp.html";
       });
+
+      if (notesLink && !nav.querySelector('a[href="ai-engineering.html"]')) {
+        const aiLink = document.createElement("a");
+        aiLink.href = "ai-engineering.html";
+        aiLink.textContent = "AI";
+        if (["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html"].includes(currentPage)) {
+          aiLink.setAttribute("aria-current", "page");
+        }
+        nav.insertBefore(aiLink, notesLink);
+      }
 
       if (legacyLink && !nav.querySelector('a[href="now.html"]')) {
         const nowLink = document.createElement("a");
@@ -239,6 +252,66 @@
   initialiseSmartBack();
   window.addEventListener("pageshow", restoreScrollPosition);
 
+  function optimiseImageLoading() {
+    document.querySelectorAll("img").forEach(function (image) {
+      image.decoding = "async";
+      if (image.closest(".hero") || image.closest(".page-hero")) {
+        image.loading = "eager";
+        image.fetchPriority = "high";
+      } else {
+        image.loading = "lazy";
+      }
+    });
+  }
+
+  function trackEvent(name, properties) {
+    const detail = Object.assign({
+      event: name,
+      page: currentPage,
+      path: window.location.pathname
+    }, properties || {});
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, properties || {});
+    }
+    if (typeof window.plausible === "function") {
+      window.plausible(name, { props: properties || {} });
+    }
+    window.dispatchEvent(new CustomEvent("rdprassy:analytics", { detail: detail }));
+  }
+
+  function classifyTrackedLink(link) {
+    if (link.dataset.track) {
+      return link.dataset.track;
+    }
+    const href = link.getAttribute("href") || "";
+    if (/downloads\/.+\.pdf(?:$|[?#])/i.test(href)) {
+      return link.hasAttribute("download") ? "resume_download" : "resume_view";
+    }
+    if (href.startsWith("mailto:")) {
+      return "contact_click";
+    }
+    if (/github\.com\/rdprassy/i.test(href)) {
+      return "github_open";
+    }
+    return "";
+  }
+
+  window.rdprassyTrack = trackEvent;
+  optimiseImageLoading();
+  trackEvent("page_view", { title: document.title });
+
+  window.addEventListener("load", function () {
+    const navigation = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    if (navigation) {
+      trackEvent("performance_snapshot", {
+        dom_content_loaded_ms: Math.round(navigation.domContentLoadedEventEnd),
+        load_ms: Math.round(navigation.loadEventEnd),
+        transfer_bytes: navigation.transferSize || 0
+      });
+    }
+  });
+
   document.addEventListener("click", function (event) {
     const themeButton = event.target.closest("[data-theme-toggle]");
     if (themeButton) {
@@ -253,6 +326,15 @@
     }
 
     const link = event.target.closest("a");
+    if (link) {
+      const trackedEvent = classifyTrackedLink(link);
+      if (trackedEvent) {
+        trackEvent(trackedEvent, {
+          label: (link.textContent || "").trim().slice(0, 80),
+          destination: link.getAttribute("href") || ""
+        });
+      }
+    }
     if (
       !link ||
       event.defaultPrevented ||
@@ -325,7 +407,7 @@
 
   function initialiseReveals() {
     const revealItems = document.querySelectorAll(
-      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section"
+      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card"
     );
 
     revealItems.forEach(function (item, index) {

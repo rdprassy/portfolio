@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive, transparent retrieval systems lab by rdprassy. Query sanitized portfolio evidence, inspect ranking scores, citations, thresholds, and evaluation results.">
+  <link rel="canonical" href="https://www.rdprassy.com/ai-lab.html">
+  <title>Retrieval Systems Lab | rdprassy</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+</head>
+<body>
+  <a class="skip-link" href="#lab">Skip to the lab</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap page-hero__grid">
+        <div>
+          <div class="breadcrumb"><a href="index.html">Home</a> / <a href="ai-engineering.html">Applied AI</a> / Lab</div>
+          <span class="kicker">Interactive engineering artifact</span>
+          <h1 class="page-title">Retrieval you can inspect—not a magic answer box.</h1>
+        </div>
+        <p class="page-lead">A deterministic, browser-side lab for exploring query processing, TF-IDF ranking, thresholds, evidence selection, citations, and simple evaluation over sanitized portfolio data.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="impact-note">
+          <strong>Transparent by design</strong>
+          <p>This lab does not call an LLM or send data to a server. It demonstrates the retrieval and evidence layer using a small public dataset, so every score and citation remains visible.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" id="lab">
+      <div class="wrap">
+        <div class="lab-layout">
+          <form class="lab-console" data-rag-form>
+            <div class="lab-console__header">
+              <div><span class="kicker">Query console</span><h2>Ask the portfolio evidence.</h2></div>
+              <span class="lab-local-badge">Runs locally</span>
+            </div>
+
+            <label class="lab-label" for="lab-query">Question</label>
+            <div class="lab-query-row">
+              <input id="lab-query" name="query" type="search" autocomplete="off" value="How has Devi applied AI to operational reliability?" data-rag-query>
+              <button class="button button--primary" type="submit">Run retrieval</button>
+            </div>
+
+            <div class="lab-samples" aria-label="Sample questions">
+              <span>Try:</span>
+              <button type="button" data-sample-query="What scale did the document RAG system support?" data-expected="rag-scale">RAG scale</button>
+              <button type="button" data-sample-query="How has Devi applied AI to operational reliability?" data-expected="agent-reliability">Agent reliability</button>
+              <button type="button" data-sample-query="Which technologies support his enterprise AI work?" data-expected="ai-toolkit">AI toolkit</button>
+              <button type="button" data-sample-query="What measurable cloud outcomes are documented?" data-expected="cloud-impact">Cloud outcomes</button>
+            </div>
+
+            <fieldset class="lab-controls">
+              <legend>Retrieval controls</legend>
+              <label>Evidence count
+                <select data-top-k>
+                  <option value="2">Top 2</option>
+                  <option value="3" selected>Top 3</option>
+                  <option value="4">Top 4</option>
+                  <option value="5">Top 5</option>
+                </select>
+              </label>
+              <label>Minimum relevance
+                <span class="lab-range-row"><input type="range" min="0" max="45" value="8" step="1" data-threshold><output data-threshold-output>0.08</output></span>
+              </label>
+            </fieldset>
+
+            <div class="lab-pipeline" aria-label="Retrieval pipeline status">
+              <span data-stage="tokenize"><i>1</i>Tokenize</span>
+              <span data-stage="score"><i>2</i>Score</span>
+              <span data-stage="filter"><i>3</i>Filter</span>
+              <span data-stage="ground"><i>4</i>Ground</span>
+              <span data-stage="evaluate"><i>5</i>Evaluate</span>
+            </div>
+          </form>
+
+          <aside class="lab-explainer">
+            <span class="kicker">What this proves</span>
+            <h3>Retrieval behavior is a product surface.</h3>
+            <p>Change the query, evidence count, or threshold. A higher threshold may improve precision but remove useful context; a larger <em>k</em> can improve recall while increasing noise.</p>
+            <dl>
+              <div><dt>Ranking</dt><dd>TF-IDF cosine similarity plus a small exact-keyword boost.</dd></div>
+              <div><dt>Grounding</dt><dd>Only retrieved sentences can appear in the synthesized response.</dd></div>
+              <div><dt>Evaluation</dt><dd>Sample questions carry expected evidence IDs for a visible hit-rate check.</dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="lab-results" aria-live="polite" data-results>
+          <div class="lab-answer">
+            <div class="lab-result-heading"><span class="kicker">Grounded response</span><span class="lab-timing" data-lab-timing>Ready</span></div>
+            <p data-answer>Run the query to synthesize an answer from retrieved evidence.</p>
+            <div class="lab-citations" data-citations></div>
+          </div>
+          <div class="lab-evaluation" data-evaluation>
+            <span class="kicker">Evaluation</span>
+            <strong data-evaluation-score>Not scored yet</strong>
+            <p data-evaluation-copy>Choose a sample question to compare retrieval against its expected evidence.</p>
+          </div>
+          <div class="lab-evidence">
+            <div class="lab-result-heading"><div><span class="kicker">Ranked evidence</span><h2>Why these chunks?</h2></div><span data-result-count>0 results</span></div>
+            <div class="lab-evidence-list" data-evidence-list></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Sanitized dataset</span>
+            <h2>Eight chunks. Clear provenance.</h2>
+            <p>The corpus is intentionally small enough to inspect. Production systems need the same traceability at a much larger scale.</p>
+          </div>
+        </div>
+        <div class="dataset-grid" data-dataset-grid></div>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Production extensions</span>
+            <h2>What changes beyond the lab.</h2>
+            <p>The transparent core remains, while enterprise requirements add identity, hybrid retrieval, reranking, evaluations, observability, and controlled generation.</p>
+          </div>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Document-level ACLs</span><span class="tag">Hybrid search</span><span class="tag">Cross-encoder reranking</span><span class="tag">Prompt versioning</span><span class="tag">Golden datasets</span><span class="tag">Trace IDs</span><span class="tag">Cost budgets</span><span class="tag">Feedback loops</span><span class="tag">Human escalation</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap"><div class="cta"><h2>Ready for the architecture behind the lab?</h2><p>See the public-safe case study, system map, evaluation contract, and downloadable engineering artifacts.</p><div class="button-row"><a class="button button--light" href="ai-engineering.html">Read the case study ↗</a><a class="button button--light" href="engineering-artifacts.html">Inspect artifacts</a></div></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><div class="footer-grid"><div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>A transparent retrieval demo built to make ranking, grounding, and evaluation inspectable.</p></div><div class="footer-col"><strong>AI work</strong><a href="ai-engineering.html">Case study</a><a href="engineering-artifacts.html">Artifacts</a><a href="skills.html#ai">Skills</a></div><div class="footer-col"><strong>Portfolio</strong><a href="projects.html">Projects</a><a href="resume.html">Résumés</a></div><div class="footer-col"><strong>Connect</strong><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>No external AI API · no uploaded data</span></div></div>
+  </footer>
+  <script src="js/site.js"></script>
+  <script src="js/ai-lab.js"></script>
+</body>
+</html>

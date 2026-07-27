@@ -1,0 +1,309 @@
+openapi: 3.1.0
+info:
+  title: Public-Safe Retrieval API Contract
+  version: 1.0.0
+  description: >
+    A sanitized reference contract showing ingestion, retrieval, grounded answers,
+    feedback, and health operations. It contains no employer endpoints or internal schemas.
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /documents:
+    post:
+      summary: Register a document for asynchronous ingestion
+      operationId: createDocument
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DocumentRequest"
+      responses:
+        "202":
+          description: Ingestion accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestionJob"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+  /documents/{documentId}:
+    get:
+      summary: Read ingestion status and source metadata
+      operationId: getDocument
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DocumentId"
+      responses:
+        "200":
+          description: Document metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Document"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /retrieve:
+    post:
+      summary: Retrieve ranked evidence without generating an answer
+      operationId: retrieveEvidence
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetrievalRequest"
+      responses:
+        "200":
+          description: Ranked, access-filtered evidence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetrievalResponse"
+  /answers:
+    post:
+      summary: Produce a grounded answer with citations
+      operationId: createAnswer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnswerRequest"
+      responses:
+        "200":
+          description: Grounded answer or explicit abstention
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnswerResponse"
+  /feedback:
+    post:
+      summary: Record answer-level user feedback
+      operationId: createFeedback
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeedbackRequest"
+      responses:
+        "204":
+          description: Feedback recorded
+  /health:
+    get:
+      summary: Report service and dependency health
+      operationId: getHealth
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status:
+                    type: string
+                    enum: [ok, degraded]
+                  dependencies:
+                    type: object
+                    additionalProperties:
+                      type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    DocumentId:
+      name: documentId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Forbidden:
+      description: Caller lacks access to the requested tenant or source
+    NotFound:
+      description: Resource does not exist or is not visible to the caller
+  schemas:
+    DocumentRequest:
+      type: object
+      required: [sourceUri, tenantId, contentType]
+      properties:
+        sourceUri:
+          type: string
+          format: uri
+        tenantId:
+          type: string
+        contentType:
+          type: string
+        title:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    IngestionJob:
+      type: object
+      required: [jobId, documentId, status]
+      properties:
+        jobId:
+          type: string
+          format: uuid
+        documentId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [queued, parsing, chunking, indexing, ready, failed]
+    Document:
+      type: object
+      required: [documentId, status, tenantId]
+      properties:
+        documentId:
+          type: string
+          format: uuid
+        status:
+          type: string
+        tenantId:
+          type: string
+        title:
+          type: string
+        chunkCount:
+          type: integer
+        indexedAt:
+          type: string
+          format: date-time
+    RetrievalRequest:
+      type: object
+      required: [query, tenantId]
+      properties:
+        query:
+          type: string
+          minLength: 2
+          maxLength: 2000
+        tenantId:
+          type: string
+        topK:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 5
+        minScore:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 0.2
+        filters:
+          type: object
+          properties:
+            sourceTypes:
+              type: array
+              items:
+                type: string
+            updatedAfter:
+              type: string
+              format: date-time
+    Evidence:
+      type: object
+      required: [chunkId, documentId, text, score, citation]
+      properties:
+        chunkId:
+          type: string
+        documentId:
+          type: string
+        text:
+          type: string
+        score:
+          type: number
+        citation:
+          type: object
+          required: [title, sourceUri]
+          properties:
+            title:
+              type: string
+            sourceUri:
+              type: string
+              format: uri
+            page:
+              type: integer
+    RetrievalResponse:
+      type: object
+      required: [traceId, evidence]
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        evidence:
+          type: array
+          items:
+            $ref: "#/components/schemas/Evidence"
+    AnswerRequest:
+      allOf:
+        - $ref: "#/components/schemas/RetrievalRequest"
+        - type: object
+          properties:
+            conversationId:
+              type: string
+            responseMode:
+              type: string
+              enum: [concise, detailed]
+              default: concise
+    AnswerResponse:
+      type: object
+      required: [traceId, status, answer, citations]
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [answered, abstained]
+        answer:
+          type: string
+        abstentionReason:
+          type: string
+        citations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Evidence"
+        metrics:
+          type: object
+          properties:
+            retrievalMs:
+              type: integer
+            generationMs:
+              type: integer
+            inputTokens:
+              type: integer
+            outputTokens:
+              type: integer
+    FeedbackRequest:
+      type: object
+      required: [traceId, rating]
+      properties:
+        traceId:
+          type: string
+          format: uuid
+        rating:
+          type: string
+          enum: [helpful, not_helpful]
+        reason:
+          type: string
+          enum: [incorrect, incomplete, irrelevant, unsafe, other]
+        comment:
+          type: string
+          maxLength: 2000

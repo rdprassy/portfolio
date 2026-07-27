@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sanitized engineering artifacts by rdprassy: a RAG API contract, AI evaluation checklist, incident retrospective, introduction script, and recommendation request kit.">
+  <link rel="canonical" href="https://www.rdprassy.com/engineering-artifacts.html">
+  <title>Engineering Artifacts | rdprassy</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap page-hero__grid">
+        <div>
+          <div class="breadcrumb"><a href="index.html">Home</a> / Engineering artifacts</div>
+          <span class="kicker">Inspectable work</span>
+          <h1 class="page-title">Senior engineering is visible in the decisions.</h1>
+        </div>
+        <p class="page-lead">Sanitized contracts, checklists, and operating templates that show how I think about APIs, AI quality, incidents, communication, and professional proof.</p>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Technical artifacts</span>
+            <h2>Reusable, public-safe, and open for inspection.</h2>
+            <p>These are reference artifacts rather than employer documents. They preserve useful engineering structure without revealing internal systems or data.</p>
+          </div>
+        </div>
+        <div class="artifact-grid">
+          <article class="artifact-card">
+            <span class="artifact-card__type">YAML · OpenAPI 3.1</span>
+            <h3>Retrieval API contract</h3>
+            <p>Ingestion, access-aware retrieval, grounded answers, feedback, health checks, trace IDs, citations, and explicit abstention.</p>
+            <div class="artifact-card__actions"><a class="button button--primary" href="artifacts/rag-api-openapi.yaml" target="_blank" rel="noopener">View contract ↗</a><a class="button button--text" href="artifacts/rag-api-openapi.yaml" download>Download ↓</a></div>
+          </article>
+          <article class="artifact-card">
+            <span class="artifact-card__type">Markdown · Release quality</span>
+            <h3>RAG evaluation checklist</h3>
+            <p>A release-oriented checklist spanning datasets, ACLs, ingestion, retrieval, groundedness, reliability, cost, feedback, and rollback.</p>
+            <div class="artifact-card__actions"><a class="button button--primary" href="artifacts/rag-evaluation-checklist.md" target="_blank" rel="noopener">Read checklist ↗</a><a class="button button--text" href="artifacts/rag-evaluation-checklist.md" download>Download ↓</a></div>
+          </article>
+          <article class="artifact-card">
+            <span class="artifact-card__type">Markdown · Reliability</span>
+            <h3>Incident retrospective</h3>
+            <p>A blameless template connecting impact, detection, timeline, root cause, AI-specific checks, corrective actions, and verification.</p>
+            <div class="artifact-card__actions"><a class="button button--primary" href="artifacts/incident-retrospective-template.md" target="_blank" rel="noopener">Read template ↗</a><a class="button button--text" href="artifacts/incident-retrospective-template.md" download>Download ↓</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Communication artifacts</span>
+            <h2>Authenticity needs a good process too.</h2>
+            <p>The materials below prepare the introduction video and attributed recommendations without manufacturing either.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="card__icon">60</span>
+            <h3>Introduction video script</h3>
+            <p>A complete 60-second script, shot plan, and recording checklist ready for an authentic camera or voice recording.</p>
+            <a class="button button--text" href="artifacts/intro-video-script.md" target="_blank" rel="noopener">Open script ↗</a>
+          </article>
+          <article class="card">
+            <span class="card__icon">RQ</span>
+            <h3>Recommendation request kit</h3>
+            <p>A concise outreach message, useful prompts, approval record, and publication format for real, attributable recommendations.</p>
+            <a class="button button--text" href="artifacts/recommendation-request-kit.md" target="_blank" rel="noopener">Open request kit ↗</a>
+          </article>
+          <article class="card">
+            <span class="card__icon">AI</span>
+            <h3>Live retrieval artifact</h3>
+            <p>A working browser-side retrieval lab with visible rankings, thresholds, citations, and evaluation rather than a static screenshot.</p>
+            <a class="button button--text" href="ai-lab.html" data-track="ai_lab_open">Launch lab ↗</a>
+          </article>
+          <article class="card">
+            <span class="card__icon">AN</span>
+            <h3>Analytics event contract</h3>
+            <p>Instrumented portfolio events, provider adapters, recommended funnel questions, and a privacy checklist before connecting an account.</p>
+            <a class="button button--text" href="artifacts/analytics-setup.md" target="_blank" rel="noopener">Read setup ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--green">
+      <div class="wrap quote-band">
+        <div class="artifact-code" aria-label="Example answer response">
+          <div class="artifact-code__bar"><span></span><span></span><span></span><small>grounded-answer.json</small></div>
+          <pre><code>{
+  "status": "answered",
+  "answer": "Evidence-grounded response",
+  "citations": [
+    {
+      "documentId": "public-safe-id",
+      "score": 0.87
+    }
+  ],
+  "traceId": "request-trace"
+}</code></pre>
+        </div>
+        <div>
+          <span class="kicker">The standard</span>
+          <blockquote>Make the behavior observable enough that another engineer can challenge it.</blockquote>
+          <div class="button-row"><a class="button button--text" href="ai-engineering.html">Read the AI case study →</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap"><div class="cta"><h2>Artifacts are useful when they lead back to judgment.</h2><p>Explore the case study for the tradeoffs, the lab for the behavior, or the résumé library for the concise professional view.</p><div class="button-row"><a class="button button--light" href="ai-engineering.html">AI case study ↗</a><a class="button button--light" href="resume.html">Résumé library</a></div></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><div class="footer-grid"><div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Inspectable engineering artifacts built from public-safe examples.</p></div><div class="footer-col"><strong>AI work</strong><a href="ai-engineering.html">Case study</a><a href="ai-lab.html">Live lab</a></div><div class="footer-col"><strong>Portfolio</strong><a href="projects.html">Projects</a><a href="resume.html">Résumés</a><a href="skills.html">Skills</a></div><div class="footer-col"><strong>Connect</strong><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Sanitized reference material</span></div></div>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>
