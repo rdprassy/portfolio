@@ -244,6 +244,16 @@
         nav.insertBefore(aiLink, notesLink);
       }
 
+      if (notesLink && !nav.querySelector('a[href="project-cinema.html"]')) {
+        const cinemaLink = document.createElement("a");
+        cinemaLink.href = "project-cinema.html";
+        cinemaLink.textContent = "Films";
+        if (currentPage === "project-cinema.html") {
+          cinemaLink.setAttribute("aria-current", "page");
+        }
+        nav.insertBefore(cinemaLink, notesLink);
+      }
+
       if (legacyLink && !nav.querySelector('a[href="now.html"]')) {
         const nowLink = document.createElement("a");
         nowLink.href = "now.html";
@@ -432,7 +442,7 @@
 
   function initialiseReveals() {
     const revealItems = document.querySelectorAll(
-      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card"
+      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card, .cinema-card, .cinema-feature, .cinema-projects-callout"
     );
 
     revealItems.forEach(function (item, index) {

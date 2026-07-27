@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280, initial-scale=1">
+  <title>Project film frame</title>
+  <style>
+    :root {
+      --accent: #0c7c64;
+      --accent-2: #52d0ad;
+      --ink: #f7f2e8;
+      --muted: #b8c9c3;
+      --dark: #071612;
+      --panel: rgba(255, 255, 255, .075);
+      --line: rgba(255, 255, 255, .13);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; overflow: hidden; width: 100%; }
+    body {
+      background:
+        radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--accent) 44%, transparent), transparent 34%),
+        radial-gradient(circle at 10% 90%, color-mix(in srgb, var(--accent-2) 25%, transparent), transparent 38%),
+        var(--dark);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    }
+    body::before {
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      content: "";
+      inset: 0;
+      mask-image: linear-gradient(to bottom right, rgba(0,0,0,.65), transparent 68%);
+      opacity: .34;
+      position: absolute;
+    }
+    .frame {
+      display: grid;
+      height: 720px;
+      isolation: isolate;
+      padding: 54px 64px 46px;
+      position: relative;
+      width: 1280px;
+    }
+    .frame::after {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      content: "";
+      inset: 26px;
+      pointer-events: none;
+      position: absolute;
+    }
+    .topline, .footer {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .brand { align-items: center; display: flex; font-size: 15px; font-weight: 850; gap: 12px; letter-spacing: .13em; text-transform: uppercase; }
+    .brand-mark { align-items: center; background: var(--ink); border-radius: 11px; color: var(--dark); display: inline-flex; font-size: 14px; height: 40px; justify-content: center; letter-spacing: -.05em; width: 40px; }
+    .label { color: var(--accent-2); font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .footer { align-self: end; color: var(--muted); font-size: 14px; }
+    .footer strong { color: var(--ink); }
+    .scene { align-self: center; position: relative; z-index: 2; }
+    .scene--intro { max-width: 980px; }
+    .eyebrow { color: var(--accent-2); font-size: 15px; font-weight: 850; letter-spacing: .2em; margin: 0 0 28px; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: 100px; letter-spacing: -.07em; line-height: .9; margin-bottom: 24px; }
+    h2 { font-size: 62px; letter-spacing: -.055em; line-height: .98; margin-bottom: 20px; }
+    h3 { font-size: 28px; letter-spacing: -.03em; margin-bottom: 10px; }
+    .headline { color: var(--muted); font-size: 30px; line-height: 1.35; margin: 0; max-width: 880px; }
+    .rule { background: linear-gradient(90deg, var(--accent), var(--accent-2)); height: 7px; margin-top: 42px; width: 170px; }
+    .snapshot-layout { align-items: center; display: grid; gap: 46px; grid-template-columns: 1.12fr .88fr; }
+    .snapshot {
+      background: #08110f;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 28px 70px rgba(0,0,0,.38);
+      overflow: hidden;
+      padding: 8px;
+    }
+    .snapshot img { border-radius: 16px; display: block; height: 350px; object-fit: cover; width: 100%; }
+    .highlights { display: grid; gap: 16px; }
+    .highlight {
+      align-items: center;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      display: flex;
+      font-size: 22px;
+      font-weight: 760;
+      gap: 16px;
+      min-height: 84px;
+      padding: 18px 20px;
+    }
+    .highlight span { align-items: center; background: color-mix(in srgb, var(--accent) 30%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 68%, transparent); border-radius: 50%; color: var(--accent-2); display: inline-flex; flex: 0 0 auto; font-size: 12px; height: 32px; justify-content: center; width: 32px; }
+    .story-grid { display: grid; gap: 22px; grid-template-columns: repeat(3, 1fr); }
+    .story-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      min-height: 255px;
+      padding: 28px;
+      position: relative;
+    }
+    .story-card:not(:last-child)::after {
+      color: var(--accent-2);
+      content: "→";
+      font-size: 28px;
+      position: absolute;
+      right: -23px;
+      top: 108px;
+      z-index: 3;
+    }
+    .story-card__label { color: var(--accent-2); display: block; font-size: 13px; font-weight: 900; letter-spacing: .15em; margin-bottom: 62px; }
+    .story-card p { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0; }
+    .closing { display: grid; gap: 44px; grid-template-columns: 1.18fr .82fr; }
+    .closing-copy h2 { max-width: 730px; }
+    .stack { align-content: center; display: flex; flex-wrap: wrap; gap: 12px; }
+    .chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; color: var(--ink); font-size: 17px; font-weight: 760; padding: 13px 18px; }
+    .visit { color: var(--accent-2); font-size: 18px; font-weight: 850; margin-top: 36px; }
+    .scene[data-layout="text"] .snapshot-layout { grid-template-columns: 1fr; }
+    .scene[data-layout="text"] .snapshot { display: none; }
+    .scene[data-layout="text"] .highlights { grid-template-columns: repeat(3, 1fr); }
+    .scene[data-layout="text"] .highlight { align-items: flex-start; flex-direction: column; font-size: 26px; min-height: 240px; padding: 28px; }
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <div class="topline">
+      <div class="brand"><span class="brand-mark">RD</span> rdprassy</div>
+      <div class="label" id="category">Project film</div>
+    </div>
+    <section class="scene" id="scene"></section>
+    <div class="footer"><span id="year"></span><strong>rdprassy.com</strong></div>
+  </main>
+  <script src="project-data.js"></script>
+  <script>
+    (function renderFrame() {
+      var params = new URLSearchParams(window.location.search);
+      var project = PROJECT_VIDEO_DATA.find(function findProject(item) { return item.slug === params.get("slug"); }) || PROJECT_VIDEO_DATA[0];
+      var sceneNumber = Number(params.get("scene") || 0);
+      var scene = document.getElementById("scene");
+      document.documentElement.style.setProperty("--accent", project.accent);
+      document.documentElement.style.setProperty("--accent-2", project.accent2);
+      document.getElementById("category").textContent = project.category;
+      document.getElementById("year").textContent = project.year + " · " + String(sceneNumber + 1).padStart(2, "0") + " / 04";
+      document.title = project.title + " — scene " + String(sceneNumber + 1);
+
+      if (sceneNumber === 0) {
+        scene.className = "scene scene--intro";
+        scene.innerHTML = "<p class=\"eyebrow\">Project film · " + project.year + "</p><h1>" + project.title + "</h1><p class=\"headline\">" + project.filmTitle + "</p><div class=\"rule\"></div>";
+        return;
+      }
+
+      if (sceneNumber === 1) {
+        scene.className = "scene";
+        scene.dataset.layout = project.image ? "image" : "text";
+        var image = project.image ? "<div class=\"snapshot\"><img src=\"" + project.image + "\" alt=\"" + project.imageAlt + "\"></div>" : "<div class=\"snapshot\"></div>";
+        var highlights = project.highlights.map(function highlight(item, index) {
+          return "<div class=\"highlight\"><span>0" + (index + 1) + "</span>" + item + "</div>";
+        }).join("");
+        scene.innerHTML = "<div class=\"snapshot-layout\">" + image + "<div class=\"highlights\">" + highlights + "</div></div>";
+        return;
+      }
+
+      if (sceneNumber === 2) {
+        scene.className = "scene";
+        var flow = project.flow.map(function flowCard(item) {
+          return "<article class=\"story-card\"><span class=\"story-card__label\">" + item.label + "</span><h3>" + item.title + "</h3><p>" + item.body + "</p></article>";
+        }).join("");
+        scene.innerHTML = "<p class=\"eyebrow\">How the system creates value</p><div class=\"story-grid\">" + flow + "</div>";
+        return;
+      }
+
+      scene.className = "scene";
+      var stack = project.stack.map(function chip(item) { return "<span class=\"chip\">" + item + "</span>"; }).join("");
+      scene.innerHTML = "<div class=\"closing\"><div class=\"closing-copy\"><p class=\"eyebrow\">Built to be understood</p><h2>" + project.headline + "</h2><p class=\"visit\">See the full story at rdprassy.com</p></div><div class=\"stack\">" + stack + "</div></div>";
+    }());
+  </script>
+</body>
+</html>
