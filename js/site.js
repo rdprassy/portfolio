@@ -2,8 +2,186 @@
   const root = document.documentElement;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  const returnStatePrefix = "rdprassy-return:";
+  const pendingNavigationKey = "rdprassy-pending-navigation";
+  const restoreScrollKey = "rdprassy-restore-scroll";
 
   root.classList.add("js");
+
+  function readSession(key) {
+    try {
+      const value = sessionStorage.getItem(key);
+      return value ? JSON.parse(value) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeSession(key, value) {
+    try {
+      sessionStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      // Navigation still works normally when storage is unavailable.
+    }
+  }
+
+  function removeSession(key) {
+    try {
+      sessionStorage.removeItem(key);
+    } catch (error) {
+      // Nothing to clean up when storage is unavailable.
+    }
+  }
+
+  function assignSectionAnchors() {
+    document.querySelectorAll("main section").forEach(function (section, index) {
+      if (section.id) {
+        return;
+      }
+      const heading = section.querySelector(".kicker, h2, h1");
+      const slug = (heading ? heading.textContent : "content")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")
+        .slice(0, 48);
+      section.id = "section-" + String(index + 1) + "-" + (slug || "content");
+    });
+  }
+
+  function isInternalUrl(url) {
+    if (window.location.protocol === "file:") {
+      return url.protocol === "file:";
+    }
+    return url.origin === window.location.origin;
+  }
+
+  function describeSource(link) {
+    const section = link.closest("section");
+    const labelElement = section && section.querySelector(".kicker, h2, h1");
+    const fallbackTitle = document.title.split("|")[0].split("—")[0].trim();
+    return {
+      id: section ? section.id : "",
+      label: labelElement ? labelElement.textContent.trim() : fallbackTitle || "previous page"
+    };
+  }
+
+  function captureReturnState(destination, link) {
+    const source = describeSource(link);
+    const returnUrl = new URL(window.location.href);
+    if (source.id) {
+      returnUrl.hash = source.id;
+    }
+
+    const returnState = {
+      url: returnUrl.href,
+      path: window.location.pathname,
+      scrollY: Math.round(window.scrollY),
+      label: source.label,
+      createdAt: Date.now()
+    };
+    const pendingState = {
+      destinationPath: destination.pathname,
+      returnState: returnState,
+      createdAt: Date.now()
+    };
+
+    writeSession(returnStatePrefix + destination.pathname, returnState);
+    writeSession(pendingNavigationKey, pendingState);
+  }
+
+  function consumeReturnState() {
+    const historyReturn = history.state && history.state.rdprassyReturn;
+    if (historyReturn) {
+      return historyReturn;
+    }
+
+    const pending = readSession(pendingNavigationKey);
+    const fresh = pending && Date.now() - pending.createdAt < 5 * 60 * 1000;
+    if (fresh && pending.destinationPath === window.location.pathname) {
+      removeSession(pendingNavigationKey);
+      try {
+        history.replaceState(
+          Object.assign({}, history.state || {}, { rdprassyReturn: pending.returnState }),
+          "",
+          window.location.href
+        );
+      } catch (error) {
+        // The session-backed state remains enough for a reliable fallback.
+      }
+      return pending.returnState;
+    }
+
+    const storedReturn = readSession(returnStatePrefix + window.location.pathname);
+    if (storedReturn && Date.now() - storedReturn.createdAt < 5 * 60 * 1000) {
+      return storedReturn;
+    }
+    removeSession(returnStatePrefix + window.location.pathname);
+    return null;
+  }
+
+  function restoreScrollPosition() {
+    document.body.classList.remove("page-leaving");
+    document.body.classList.add("page-ready");
+
+    const restoreState = readSession(restoreScrollKey);
+    if (!restoreState || restoreState.path !== window.location.pathname) {
+      return;
+    }
+
+    removeSession(restoreScrollKey);
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        window.scrollTo({ top: restoreState.scrollY || 0, behavior: "auto" });
+      });
+    });
+  }
+
+  function initialiseSmartBack() {
+    const homePages = ["", "index.html", "index_rdp.html", "index_bckp.html"];
+    if (homePages.includes(currentPage)) {
+      return;
+    }
+
+    const returnState = consumeReturnState();
+    const backBar = document.createElement("div");
+    const backInner = document.createElement("div");
+    const backLink = document.createElement("a");
+    const fallbackUrl = "index.html";
+
+    backBar.className = "page-back";
+    backInner.className = "wrap page-back__inner";
+    backLink.className = "page-back__link";
+    backLink.href = returnState && returnState.url ? returnState.url : fallbackUrl;
+    backLink.innerHTML = '<span aria-hidden="true">←</span><span>' +
+      (returnState && returnState.label ? "Back to " + returnState.label : "Back to portfolio") +
+      "</span>";
+
+    backLink.addEventListener("click", function (event) {
+      if (!returnState) {
+        return;
+      }
+
+      event.preventDefault();
+      writeSession(restoreScrollKey, returnState);
+      document.body.classList.add("page-leaving");
+
+      window.setTimeout(function () {
+        if (history.length > 1) {
+          history.back();
+        } else {
+          window.location.href = returnState.url;
+        }
+      }, reducedMotion.matches ? 0 : 150);
+    });
+
+    backInner.appendChild(backLink);
+    backBar.appendChild(backInner);
+    const header = document.querySelector(".site-header");
+    if (header) {
+      header.insertAdjacentElement("afterend", backBar);
+    }
+  }
 
   function setTheme(theme) {
     root.dataset.theme = theme;
@@ -57,6 +235,9 @@
 
   enrichNavigation();
   initialiseTheme();
+  assignSectionAnchors();
+  initialiseSmartBack();
+  window.addEventListener("pageshow", restoreScrollPosition);
 
   document.addEventListener("click", function (event) {
     const themeButton = event.target.closest("[data-theme-toggle]");
@@ -74,7 +255,6 @@
     const link = event.target.closest("a");
     if (
       !link ||
-      reducedMotion.matches ||
       event.defaultPrevented ||
       event.button !== 0 ||
       event.metaKey ||
@@ -89,7 +269,12 @@
 
     const url = new URL(link.href, window.location.href);
     const samePageAnchor = url.pathname === window.location.pathname && url.hash;
-    if (url.origin !== window.location.origin || samePageAnchor || url.protocol === "mailto:") {
+    if (!isInternalUrl(url) || samePageAnchor || url.protocol === "mailto:") {
+      return;
+    }
+
+    captureReturnState(url, link);
+    if (reducedMotion.matches) {
       return;
     }
 

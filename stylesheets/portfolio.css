@@ -123,6 +123,37 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-weight: 800;
   padding: 9px 12px;
 }
+.page-back {
+  backdrop-filter: blur(16px);
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 76px;
+  z-index: 90;
+}
+.page-back__inner { align-items: center; display: flex; min-height: 48px; }
+.page-back__link {
+  align-items: center;
+  color: var(--muted);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 820;
+  gap: 9px;
+  letter-spacing: .02em;
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.page-back__link span:first-child {
+  color: var(--brand);
+  font-size: 18px;
+  transition: transform .2s ease;
+}
+.page-back__link:hover, .page-back__link:focus-visible { color: var(--brand); }
+.page-back__link:hover span:first-child, .page-back__link:focus-visible span:first-child { transform: translateX(-4px); }
 .theme-button {
   align-items: center;
   background: transparent;
@@ -823,7 +854,7 @@ html[data-theme="dark"] .button--light:focus {
 @media print {
   @page { margin: 12mm; size: A4; }
   body { background: #fff !important; color: #111 !important; }
-  .site-header, .site-footer, .resume-library-hero, .resume-library, .resume-toolbar, .skip-link { display: none !important; }
+  .site-header, .site-footer, .page-back, .resume-library-hero, .resume-library, .resume-toolbar, .skip-link { display: none !important; }
   .resume-shell { max-width: none; padding: 0; }
   .resume-document { border: 0; border-radius: 0; box-shadow: none; padding: 0; }
   .resume-header h1 { font-size: 38px; }
