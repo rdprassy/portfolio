@@ -2,12 +2,11 @@
   "use strict";
 
   /*
-   * Paste the GA4 web-stream Measurement ID below after creating the stream.
-   * It must start with "G-". The legacy UA-84703941-1 identifier cannot be
-   * reused because Universal Analytics no longer processes new data.
+   * GA4 web-stream configuration. The legacy UA-84703941-1 identifier cannot
+   * be reused because Universal Analytics no longer processes new data.
    */
   window.RDPRASSY_ANALYTICS_CONFIG = Object.freeze({
-    googleMeasurementId: "",
+    googleMeasurementId: "G-GQ2BFW2HKJ",
     consentVersion: "2026-07-27",
     debug: false
   });

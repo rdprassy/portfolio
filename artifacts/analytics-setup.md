@@ -4,7 +4,8 @@ The portfolio now has a consent-aware Google Analytics 4 integration. The retire
 Universal Analytics identifier (`UA-84703941-1`) has been removed because
 Universal Analytics no longer processes new data.
 
-Collection remains inactive until a valid GA4 web-stream Measurement ID is added.
+Collection is configured for the `rdprassy Portfolio` GA4 web stream using
+Measurement ID `G-GQ2BFW2HKJ`. The Google tag loads only after visitor consent.
 
 ## One-time GA4 setup
 
@@ -16,7 +17,7 @@ Collection remains inactive until a valid GA4 web-stream Measurement ID is added
 6. Paste it into `js/analytics-config.js`:
 
 ```js
-googleMeasurementId: "G-XXXXXXXXXX",
+googleMeasurementId: "G-GQ2BFW2HKJ",
 ```
 
 The Measurement ID is a public website identifier, not a password or API secret,
@@ -24,6 +25,10 @@ so it is expected to appear in client-side source code.
 
 The old `UA-84703941-1` value cannot be converted into or substituted for this
 new identifier.
+
+The raw Google installation snippet is intentionally not pasted into each page.
+The portfolio's consent-aware loader creates the same Google tag after consent;
+installing both versions would risk duplicate page views and events.
 
 Official reference:
 [Find your Google tag ID](https://support.google.com/analytics/answer/9539598)
