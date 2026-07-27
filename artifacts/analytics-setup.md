@@ -1,55 +1,99 @@
-# Portfolio Analytics Setup
+# GA4 Setup and Mobile Reporting
 
-The redesigned portfolio emits privacy-conscious analytics events without sending them anywhere by default. This avoids silently connecting a third-party tracker before the site owner chooses a provider and approves its privacy implications.
+The portfolio now has a consent-aware Google Analytics 4 integration. The retired
+Universal Analytics identifier (`UA-84703941-1`) has been removed because
+Universal Analytics no longer processes new data.
+
+Collection remains inactive until a valid GA4 web-stream Measurement ID is added.
+
+## One-time GA4 setup
+
+1. Sign in at [Google Analytics](https://analytics.google.com/).
+2. Open **Admin** and create or select a Google Analytics 4 property.
+3. Under **Data collection and modification**, open **Data streams**.
+4. Create a **Web** stream for `https://www.rdprassy.com`.
+5. Open the stream and copy the **Measurement ID** beginning with `G-`.
+6. Paste it into `js/analytics-config.js`:
+
+```js
+googleMeasurementId: "G-XXXXXXXXXX",
+```
+
+The Measurement ID is a public website identifier, not a password or API secret,
+so it is expected to appear in client-side source code.
+
+The old `UA-84703941-1` value cannot be converted into or substituted for this
+new identifier.
+
+Official reference:
+[Find your Google tag ID](https://support.google.com/analytics/answer/9539598)
+
+## What the integration does
+
+- Loads the Google tag only after the visitor allows analytics.
+- Uses Google Consent Mode v2 states.
+- Keeps advertising storage, advertising user data, and ad personalization denied.
+- Disables Google Signals and advertising-personalization signals in the site tag.
+- Avoids automatic duplicate page views.
+- Removes email addresses and query strings from event destinations.
+- Never sends AI lab query text, email content, form content, phone numbers, or documents.
+- Provides persistent **Privacy** and **Analytics choices** controls in the footer.
 
 ## Events already instrumented
 
-- `page_view`
-- `resume_view`
-- `resume_download`
-- `ai_case_study_open`
-- `ai_lab_open`
-- `ai_lab_run`
-- `github_open`
-- `contact_click`
-- `performance_snapshot`
+| Event | Meaning |
+| --- | --- |
+| `page_view` | A portfolio page was viewed |
+| `resume_view` | A résumé edition was opened |
+| `resume_download` | A résumé PDF was downloaded |
+| `ai_case_study_open` | The flagship AI case study was opened |
+| `ai_lab_open` | The interactive retrieval lab was opened |
+| `ai_lab_run` | A retrieval run completed; query text is excluded |
+| `github_open` | A GitHub profile or project link was opened |
+| `contact_click` | A contact action was selected |
+| `performance_snapshot` | Coarse navigation timing was recorded |
 
-The AI lab event records result count, top-k, score threshold, and whether the question was a named sample or a custom query. It does not record the query text.
+## Recommended GA4 administration
 
-## Browser event interface
+1. In **Admin → Data display → Events**, confirm the custom events after traffic arrives.
+2. Mark `contact_click` as a **key event**.
+3. Create custom dimensions for `site_section`, `event_label`, and
+   `link_destination`.
+4. Create custom metrics for `load_ms`, `result_count`, `top_k`, and `threshold`
+   only if those reports will be used.
+5. Keep data retention limited to the shortest period that meets the reporting need.
+6. Leave advertising features off unless the privacy notice and consent design are
+   intentionally expanded.
 
-Every event is dispatched as:
+## Verify after activation
 
-```js
-window.addEventListener("rdprassy:analytics", function (event) {
-  console.log(event.detail);
-});
-```
+1. Temporarily set `debug: true` in `js/analytics-config.js`.
+2. Open the live site in a private browser window.
+3. Allow analytics in the consent panel.
+4. Visit the résumé library, open the AI case study, and run one sample lab query.
+5. In GA4, open **Admin → Data display → DebugView** and confirm the events.
+6. Return `debug` to `false` before the final publish.
 
-## Supported adapters
+## Use Analytics on a phone
 
-The site automatically forwards events when either of these provider functions exists:
+The website remains a **Web** data stream. A separate Android or iOS app stream is
+not needed merely to view the website's reports on a phone.
 
-- `window.gtag` for Google Analytics 4
-- `window.plausible` for Plausible
+1. Install the official Google Analytics app:
+   - [Android / Google Play](https://play.google.com/store/apps/details?id=com.google.android.apps.giant)
+   - [iPhone and iPad / App Store](https://apps.apple.com/app/google-analytics/id881599038)
+2. Sign in with the same Google account that has access to the GA4 property.
+3. Select the rdprassy GA4 property.
+4. Pin or revisit **Realtime**, **Reports snapshot**, **Pages and screens**, and
+   **Events** for quick portfolio checks.
 
-No provider script or measurement identifier is included in the public site yet.
+Official reference:
+[About the Analytics app](https://support.google.com/analytics/answer/12674799)
 
-## Recommended dashboard
-
-Track these portfolio decisions:
+## Useful portfolio questions
 
 1. Which résumé edition receives the most views and downloads?
 2. Do visitors open the AI case study and then run the lab?
-3. Which case studies lead to GitHub, LinkedIn, or contact clicks?
+3. Which project paths lead to GitHub, LinkedIn, or contact clicks?
 4. Which pages have slow load snapshots on real devices?
 5. Does the contact conversion rate improve after content changes?
-
-## Privacy checklist before connection
-
-- Choose a provider and data region.
-- Publish or update a privacy notice.
-- Disable unnecessary advertising and cross-site features.
-- Avoid collecting AI lab query text, email content, or personal form data.
-- Define retention and access.
-- Validate events in a test property before production.

@@ -8,6 +8,26 @@
 
   root.classList.add("js");
 
+  function initialiseAnalyticsBridge() {
+    if (document.querySelector("script[data-rdprassy-analytics]")) {
+      return;
+    }
+
+    const siteScript = Array.from(document.scripts).find(function (script) {
+      return /(?:^|\/)site\.js(?:[?#].*)?$/.test(script.src || "");
+    });
+    const analyticsUrl = siteScript && siteScript.src
+      ? new URL("analytics.js", siteScript.src).href
+      : "js/analytics.js";
+    const analyticsScript = document.createElement("script");
+    analyticsScript.src = analyticsUrl;
+    analyticsScript.async = true;
+    analyticsScript.dataset.rdprassyAnalytics = "";
+    document.head.appendChild(analyticsScript);
+  }
+
+  initialiseAnalyticsBridge();
+
   function readSession(key) {
     try {
       const value = sessionStorage.getItem(key);
@@ -271,8 +291,13 @@
       path: window.location.pathname
     }, properties || {});
 
-    if (typeof window.gtag === "function") {
-      window.gtag("event", name, properties || {});
+    if (window.rdprassyAnalytics && typeof window.rdprassyAnalytics.track === "function") {
+      window.rdprassyAnalytics.track(detail);
+    } else {
+      window.rdprassyEventQueue = window.rdprassyEventQueue || [];
+      if (window.rdprassyEventQueue.length < 50) {
+        window.rdprassyEventQueue.push(detail);
+      }
     }
     if (typeof window.plausible === "function") {
       window.plausible(name, { props: properties || {} });
