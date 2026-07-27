@@ -140,7 +140,7 @@
 
   function initialiseReveals() {
     const revealItems = document.querySelectorAll(
-      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-section"
+      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section"
     );
 
     revealItems.forEach(function (item, index) {
