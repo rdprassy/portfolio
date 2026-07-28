@@ -306,6 +306,54 @@
   initialiseSmartBack();
   window.addEventListener("pageshow", restoreScrollPosition);
 
+  function initialiseFooterShortcut() {
+    const footer = document.querySelector(".site-footer");
+    if (!footer || document.querySelector("[data-footer-shortcut]")) {
+      return;
+    }
+
+    footer.id = footer.id || "site-footer";
+
+    const shortcut = document.createElement("button");
+    shortcut.className = "footer-shortcut";
+    shortcut.type = "button";
+    shortcut.dataset.footerShortcut = "";
+    shortcut.dataset.destination = "footer";
+    shortcut.setAttribute("aria-label", "Jump to the footer");
+    shortcut.innerHTML = '<span data-footer-shortcut-label>More</span><span aria-hidden="true" data-footer-shortcut-arrow>↓</span>';
+
+    shortcut.addEventListener("click", function () {
+      const destination = shortcut.dataset.destination;
+      const target = destination === "top" ? document.body : footer;
+      target.scrollIntoView({
+        behavior: reducedMotion.matches ? "auto" : "smooth",
+        block: destination === "top" ? "start" : "end"
+      });
+    });
+
+    document.body.appendChild(shortcut);
+
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const label = shortcut.querySelector("[data-footer-shortcut-label]");
+    const arrow = shortcut.querySelector("[data-footer-shortcut-arrow]");
+    const observer = new IntersectionObserver(function (entries) {
+      const footerVisible = entries.some(function (entry) {
+        return entry.isIntersecting;
+      });
+      shortcut.dataset.destination = footerVisible ? "top" : "footer";
+      shortcut.setAttribute("aria-label", footerVisible ? "Back to the top of the page" : "Jump to the footer");
+      label.textContent = footerVisible ? "Top" : "More";
+      arrow.textContent = footerVisible ? "↑" : "↓";
+    }, { threshold: 0.12 });
+
+    observer.observe(footer);
+  }
+
+  initialiseFooterShortcut();
+
   function optimiseImageLoading() {
     document.querySelectorAll("img").forEach(function (image) {
       image.decoding = "async";

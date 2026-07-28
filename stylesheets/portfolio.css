@@ -1475,6 +1475,32 @@ a:focus-visible > .cinema-play { background: #52d0ad; transform: translate(-50%,
   margin-top: 54px;
   padding-top: 24px;
 }
+.footer-shortcut {
+  align-items: center;
+  backdrop-filter: blur(14px);
+  background: rgba(9, 21, 18, .92);
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  bottom: 20px;
+  box-shadow: 0 16px 42px rgba(5, 18, 14, .24);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  gap: 9px;
+  letter-spacing: .08em;
+  padding: 13px 17px;
+  position: fixed;
+  right: 20px;
+  text-transform: uppercase;
+  transition: background .2s ease, transform .2s ease;
+  z-index: 950;
+}
+.footer-shortcut:hover { background: var(--brand); transform: translateY(-2px); }
+.footer-shortcut:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.footer-shortcut [data-footer-shortcut-arrow] { font-size: 16px; line-height: 1; }
 
 .analytics-footer-links {
   align-items: center;
@@ -1646,6 +1672,7 @@ a:focus-visible > .cinema-play { background: #52d0ad; transform: translate(-50%,
   .brand-showcase figcaption { align-items: flex-start; flex-direction: column; gap: 8px; }
   .cta { border-radius: 24px; padding: 38px 26px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
+  .footer-shortcut { bottom: 14px; padding: 12px 15px; right: 14px; }
   .analytics-footer-links { align-items: flex-start; flex-direction: column; gap: 6px; }
   .analytics-consent {
     border-radius: 20px;
@@ -1706,7 +1733,7 @@ a:focus-visible > .cinema-play { background: #52d0ad; transform: translate(-50%,
 @media print {
   @page { margin: 12mm; size: A4; }
   body { background: #fff !important; color: #111 !important; }
-  .site-header, .site-footer, .page-back, .resume-library-hero, .resume-library, .resume-toolbar, .skip-link { display: none !important; }
+  .site-header, .site-footer, .footer-shortcut, .page-back, .resume-library-hero, .resume-library, .resume-toolbar, .skip-link { display: none !important; }
   .resume-shell { max-width: none; padding: 0; }
   .resume-document { border: 0; border-radius: 0; box-shadow: none; padding: 0; }
   .resume-header h1 { font-size: 38px; }
