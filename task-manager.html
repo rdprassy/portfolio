@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create, prioritize, organize, and complete tasks in a four-column Eisenhower Matrix. Data stays on your device.">
+  <meta name="author" content="Devi Prasad Choudhary Ratnala">
+  <meta property="og:title" content="Eisenhower Task Matrix | rdprassy">
+  <meta property="og:description" content="A focused task management system for deciding what to do, schedule, delegate, or eliminate.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rdprassy.com/task-manager.html">
+  <meta property="og:image" content="https://www.rdprassy.com/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.rdprassy.com/task-manager.html">
+  <title>Eisenhower Task Matrix | rdprassy</title>
+  <link rel="icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/task-manager.css">
+</head>
+<body class="task-app-page">
+  <a class="skip-link" href="#main">Skip to task manager</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="rdprassy home"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="task-hero">
+      <div class="wrap task-hero__grid">
+        <div>
+          <div class="breadcrumb"><a href="index.html">Home</a> / Task Matrix</div>
+          <span class="kicker">Decision system · Device-local</span>
+          <h1>Decide what deserves your attention.</h1>
+          <p>Create tasks, classify urgency and importance, then work from the right quadrant. Everything stays in this browser unless you export a backup.</p>
+        </div>
+        <div class="task-hero__principle">
+          <span>THE RULE</span>
+          <strong>Important is not always urgent.<br>Urgent is not always important.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="task-workspace">
+      <div class="wrap">
+        <div class="task-stats" aria-label="Task summary">
+          <article><span>Open tasks</span><strong data-task-open>0</strong></article>
+          <article><span>Completed</span><strong data-task-completed>0</strong></article>
+          <article><span>Due today</span><strong data-task-today>0</strong></article>
+          <article><span>Completion</span><strong data-task-progress>0%</strong></article>
+        </div>
+
+        <section class="task-composer" aria-labelledby="task-form-title">
+          <div class="task-composer__heading">
+            <div><span class="kicker">Capture and classify</span><h2 id="task-form-title" data-task-form-title>Create a task</h2></div>
+            <span class="task-local-badge"><span aria-hidden="true"></span> Saved on this device</span>
+          </div>
+          <form data-task-form>
+            <div class="task-form-grid">
+              <label class="task-field task-field--wide"><span>Task title</span><input name="title" data-task-title required maxlength="120" autocomplete="off" placeholder="What needs to happen?"><small data-title-count>0/120</small></label>
+              <label class="task-field"><span>Due date</span><input type="date" name="dueDate" data-task-due></label>
+              <label class="task-field"><span>Category</span><select name="category" data-task-category><option>Work</option><option>Personal</option><option>Learning</option><option>Health</option><option>Finance</option><option>Other</option></select></label>
+              <label class="task-field task-field--wide"><span>Notes <em>optional</em></span><textarea name="notes" data-task-notes maxlength="360" rows="3" placeholder="Add context, a next action, or the desired outcome…"></textarea></label>
+            </div>
+
+            <fieldset class="priority-choices">
+              <legend>How should this task be classified?</legend>
+              <label><input type="checkbox" data-task-important><span><b>Important</b><small>Moves a meaningful goal forward</small></span></label>
+              <label><input type="checkbox" data-task-urgent><span><b>Urgent</b><small>Needs attention very soon</small></span></label>
+              <div class="priority-result"><span>Destination</span><strong data-quadrant-preview>Eliminate / Limit</strong><small data-quadrant-preview-copy>Neither urgent nor important</small></div>
+            </fieldset>
+
+            <div class="task-form-actions">
+              <button class="button button--primary" type="submit" data-task-submit>Add task</button>
+              <button class="button" type="button" data-task-cancel-edit hidden>Cancel edit</button>
+              <span data-task-form-status aria-live="polite">Choose importance and urgency to place the task automatically.</span>
+            </div>
+          </form>
+        </section>
+
+        <div class="task-toolbar">
+          <label class="task-search"><span class="sr-only">Search tasks</span><input type="search" data-task-search placeholder="Search tasks or notes…"><span aria-hidden="true">⌕</span></label>
+          <div class="task-filters" role="group" aria-label="Filter tasks">
+            <button class="is-active" type="button" data-task-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-task-filter="active" aria-pressed="false">Active</button>
+            <button type="button" data-task-filter="completed" aria-pressed="false">Completed</button>
+            <button type="button" data-task-filter="due" aria-pressed="false">Due soon</button>
+          </div>
+          <div class="task-tools">
+            <button type="button" data-task-export>Export</button>
+            <label class="task-import">Import<input type="file" accept="application/json" data-task-import></label>
+            <button type="button" data-clear-completed>Clear completed</button>
+          </div>
+        </div>
+
+        <section class="eisenhower-matrix" aria-label="Eisenhower task matrix">
+          <article class="matrix-quadrant matrix-quadrant--do" data-quadrant="do">
+            <header><span class="matrix-quadrant__number">Q1</span><div><span>Urgent + Important</span><h2>Do first</h2><p>Handle now. Protect focus.</p></div><strong data-quadrant-count="do">0</strong></header>
+            <div class="task-list" data-task-list="do"></div>
+            <div class="task-empty" data-task-empty="do"><span aria-hidden="true">✓</span><strong>Nothing critical</strong><p>Urgent, important tasks will appear here.</p></div>
+          </article>
+
+          <article class="matrix-quadrant matrix-quadrant--schedule" data-quadrant="schedule">
+            <header><span class="matrix-quadrant__number">Q2</span><div><span>Important + Not urgent</span><h2>Schedule</h2><p>Plan time. Build momentum.</p></div><strong data-quadrant-count="schedule">0</strong></header>
+            <div class="task-list" data-task-list="schedule"></div>
+            <div class="task-empty" data-task-empty="schedule"><span aria-hidden="true">◷</span><strong>Nothing scheduled</strong><p>Important long-term work belongs here.</p></div>
+          </article>
+
+          <article class="matrix-quadrant matrix-quadrant--delegate" data-quadrant="delegate">
+            <header><span class="matrix-quadrant__number">Q3</span><div><span>Urgent + Not important</span><h2>Delegate</h2><p>Assign clearly. Follow through.</p></div><strong data-quadrant-count="delegate">0</strong></header>
+            <div class="task-list" data-task-list="delegate"></div>
+            <div class="task-empty" data-task-empty="delegate"><span aria-hidden="true">→</span><strong>Nothing to delegate</strong><p>Urgent tasks another person can own appear here.</p></div>
+          </article>
+
+          <article class="matrix-quadrant matrix-quadrant--eliminate" data-quadrant="eliminate">
+            <header><span class="matrix-quadrant__number">Q4</span><div><span>Not urgent + Not important</span><h2>Eliminate / Limit</h2><p>Remove noise. Reclaim attention.</p></div><strong data-quadrant-count="eliminate">0</strong></header>
+            <div class="task-list" data-task-list="eliminate"></div>
+            <div class="task-empty" data-task-empty="eliminate"><span aria-hidden="true">–</span><strong>No low-value tasks</strong><p>Tasks worth limiting or removing appear here.</p></div>
+          </article>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="task-toast" data-task-toast role="status" aria-live="polite" hidden><span data-task-toast-copy></span><button type="button" data-task-undo hidden>Undo</button></div>
+
+  <footer class="site-footer"><div class="wrap"><div class="footer-grid"><div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>A focused decision tool built into the portfolio. Your task data remains on your device.</p></div><div class="footer-col"><strong>Product</strong><a href="#main">Task matrix</a><a href="games.html">RD Arcade</a><a href="ai-lab.html">AI Lab</a></div><div class="footer-col"><strong>Portfolio</strong><a href="projects.html">Projects</a><a href="project-cinema.html">Project Cinema</a><a href="resume.html">Résumé</a></div><div class="footer-col"><strong>Connect</strong><a href="contact.html">Contact</a><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a></div></div><div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Local-first by design</span></div></div></footer>
+  <script src="js/site.js"></script>
+  <script src="js/task-manager.js"></script>
+</body>
+</html>

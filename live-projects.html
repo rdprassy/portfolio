@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore rdprassy’s live Vercel products: AlignIQ, NFT Terminal, and Monad Wallet Checker, with production snapshots, technical decisions, live demos, and source code.">
+  <meta name="description" content="Explore rdprassy’s live products across AI delivery intelligence, Web3, and personal productivity, with production snapshots and technical decisions.">
   <meta property="og:title" content="Live Products | rdprassy">
-  <meta property="og:description" content="Three public products spanning AI delivery intelligence and Web3, with live demos and inspectable source code.">
+  <meta property="og:description" content="Four public products spanning AI delivery intelligence, Web3, and a local-first task management system.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.rdprassy.com/live-projects.html">
   <meta property="og:image" content="https://www.rdprassy.com/images/vercel/aligniq-dashboard.jpg">
@@ -14,6 +14,7 @@
   <title>Live Products | rdprassy</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
   <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/task-manager.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,6 +53,16 @@
           "url": "https://vercel.rdprassy.com",
           "codeRepository": "https://github.com/rdprassy/Web3-Wallet-Checker"
         }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "WebApplication",
+          "name": "Eisenhower Task Matrix",
+          "applicationCategory": "ProductivityApplication",
+          "url": "https://www.rdprassy.com/task-manager.html"
+        }
       }
     ]
   }
@@ -81,18 +92,18 @@
         <div>
           <div class="breadcrumb"><a href="index.html">Home</a> / <a href="projects.html">Projects</a> / Live Products</div>
           <span class="kicker">Deployed on Vercel</span>
-          <h1 class="page-title">Three live products. Three different product muscles.</h1>
+          <h1 class="page-title">Four live products. Four different product muscles.</h1>
         </div>
-        <p class="page-lead">From AI-assisted delivery alignment to an on-chain NFT launchpad and a focused wallet utility—each project is live, inspectable, and connected to its source.</p>
+        <p class="page-lead">From AI-assisted delivery alignment and Web3 utilities to a local-first productivity system—each project is live, inspectable, and built around a clear user decision.</p>
       </div>
     </section>
 
     <section class="proof-strip" aria-label="Live product highlights">
       <div class="wrap proof-grid">
-        <div class="proof"><strong>3 live</strong><span>public Vercel deployments</span></div>
-        <div class="proof"><strong>3 domains</strong><span>branded rdprassy URLs</span></div>
+        <div class="proof"><strong>4 live</strong><span>public web products</span></div>
+        <div class="proof"><strong>4 domains</strong><span>distinct product problems</span></div>
         <div class="proof"><strong>2 Web3</strong><span>products built for Monad</span></div>
-        <div class="proof"><strong>1 AI</strong><span>delivery-intelligence platform</span></div>
+        <div class="proof"><strong>1 local-first</strong><span>productivity system</span></div>
       </div>
     </section>
 
@@ -193,6 +204,36 @@
       </div>
     </section>
 
+    <section class="section section--white" id="task-matrix">
+      <div class="wrap live-product live-product--reverse">
+        <a class="live-product__media task-product-preview" href="task-manager.html" aria-label="Open the Eisenhower Task Matrix">
+          <span class="task-home__cell task-home__cell--do"><small>Q1</small><strong>Do first</strong><i>Urgent + important</i></span>
+          <span class="task-home__cell task-home__cell--schedule"><small>Q2</small><strong>Schedule</strong><i>Important</i></span>
+          <span class="task-home__cell task-home__cell--delegate"><small>Q3</small><strong>Delegate</strong><i>Urgent</i></span>
+          <span class="task-home__cell task-home__cell--eliminate"><small>Q4</small><strong>Eliminate</strong><i>Limit noise</i></span>
+          <span class="live-product__open">Open live product ↗</span>
+        </a>
+        <div class="live-product__body">
+          <div class="live-product__status"><span aria-hidden="true"></span> Live local-first application</div>
+          <span class="kicker">04 · Productivity system</span>
+          <h2>Eisenhower Task Matrix</h2>
+          <p class="live-product__lead">A focused task manager that converts urgency and importance into four clear action modes: do, schedule, delegate, or eliminate.</p>
+          <div class="live-product__facts" aria-label="Task Matrix product facts">
+            <div><strong>4</strong><span>decision quadrants</span></div>
+            <div><strong>0</strong><span>accounts required</span></div>
+            <div><strong>Local</strong><span>private task storage</span></div>
+          </div>
+          <ul class="live-product__features">
+            <li>Automatic quadrant assignment based on urgency and importance.</li>
+            <li>Drag-and-drop organization with accessible mobile move controls.</li>
+            <li>Completion tracking, due-date states, search, filters, edit, undo, and JSON backup.</li>
+          </ul>
+          <div class="tag-list"><span class="tag">Vanilla JavaScript</span><span class="tag">LocalStorage</span><span class="tag">Drag &amp; Drop</span><span class="tag">Responsive UI</span></div>
+          <div class="button-row"><a class="button button--primary" href="task-manager.html" data-track="live_project_open" data-project="task-matrix">Open Task Matrix ↗</a></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section--tight">
       <div class="wrap">
         <div class="cta">
@@ -208,12 +249,12 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="footer-grid">
-        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Live products across AI delivery intelligence and Web3.</p></div>
-        <div class="footer-col"><strong>Products</strong><a href="#aligniq">AlignIQ</a><a href="#nft-terminal">NFT Terminal</a><a href="#wallet-checker">Wallet Checker</a></div>
+        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Live products across AI delivery intelligence, Web3, and productivity.</p></div>
+        <div class="footer-col"><strong>Products</strong><a href="#aligniq">AlignIQ</a><a href="#nft-terminal">NFT Terminal</a><a href="#wallet-checker">Wallet Checker</a><a href="#task-matrix">Task Matrix</a></div>
         <div class="footer-col"><strong>Explore</strong><a href="projects.html">Case studies</a><a href="ai-engineering.html">Applied AI</a><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a></div>
         <div class="footer-col"><strong>Connect</strong><a href="contact.html">Contact</a><a href="https://www.linkedin.com/in/rdprassy" target="_blank" rel="noopener">LinkedIn ↗</a></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Three products · three live deployments</span></div>
+      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Four live products</span></div>
     </div>
   </footer>
   <script src="js/site.js"></script>
