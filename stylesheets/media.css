@@ -241,6 +241,10 @@
     linear-gradient(315deg, rgba(82, 208, 173, .2), transparent 54%),
     #0a1b17;
 }
+.media-player--song .media-player__art { object-position: center; opacity: .82; }
+.media-player--song .media-player__shade {
+  background: linear-gradient(90deg, rgba(2, 10, 8, .96) 0%, rgba(2, 10, 8, .73) 48%, rgba(2, 10, 8, .16) 100%);
+}
 .media-player--music .media-player__content { max-width: 530px; }
 .media-vinyl {
   align-items: center;
@@ -340,6 +344,7 @@
   .media-index a + a { border-left: 0; border-top: 1px solid var(--line); }
   .media-player { aspect-ratio: 4 / 5; border-radius: 22px; }
   .media-player__shade { background: linear-gradient(0deg, rgba(2, 10, 8, .98), rgba(2, 10, 8, .34)); }
+  .media-player--song .media-player__shade { background: linear-gradient(0deg, rgba(2, 10, 8, .98) 0%, rgba(2, 10, 8, .74) 45%, rgba(2, 10, 8, .16) 100%); }
   .media-player__content { justify-content: flex-end; padding: 26px 22px; }
   .media-player h3 { font-size: 40px; }
   .media-player .button-row { align-items: stretch; flex-direction: column; width: 100%; }
