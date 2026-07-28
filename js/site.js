@@ -254,6 +254,16 @@
         nav.insertBefore(cinemaLink, notesLink);
       }
 
+      if (notesLink && !nav.querySelector('a[href="games.html"]')) {
+        const gamesLink = document.createElement("a");
+        gamesLink.href = "games.html";
+        gamesLink.textContent = "Play";
+        if (["games.html", "snake-ladders.html", "flappy-flight.html"].includes(currentPage)) {
+          gamesLink.setAttribute("aria-current", "page");
+        }
+        nav.insertBefore(gamesLink, nav.querySelector('a[href="project-cinema.html"]') || notesLink);
+      }
+
       if (legacyLink && !nav.querySelector('a[href="now.html"]')) {
         const nowLink = document.createElement("a");
         nowLink.href = "now.html";
@@ -431,7 +441,7 @@
 
   function initialiseHero() {
     const heroItems = document.querySelectorAll(
-      ".hero .eyebrow, .hero .display, .hero .hero-copy, .hero .hero-actions, .hero .portrait-card, .page-hero .breadcrumb, .page-hero .kicker, .page-hero .page-title, .page-hero .page-lead"
+      ".hero .eyebrow, .hero .display, .hero .hero-copy, .hero .hero-actions, .hero .portrait-card, .page-hero .breadcrumb, .page-hero .kicker, .page-hero .page-title, .page-hero .page-lead, .arcade-hero .breadcrumb, .arcade-hero .kicker, .arcade-hero h1, .arcade-hero p, .arcade-hero .hero-actions, .arcade-machine"
     );
 
     heroItems.forEach(function (item, index) {
@@ -442,7 +452,7 @@
 
   function initialiseReveals() {
     const revealItems = document.querySelectorAll(
-      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card, .cinema-card, .cinema-feature, .cinema-projects-callout"
+      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card, .cinema-card, .cinema-feature, .cinema-projects-callout, .game-library-card, .arcade-home__games, .arcade-values"
     );
 
     revealItems.forEach(function (item, index) {

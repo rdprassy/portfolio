@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Snake & Ladders in the rdprassy Arcade against the browser or with a friend.">
+  <meta name="author" content="Devi Prasad Choudhary Ratnala">
+  <link rel="canonical" href="https://www.rdprassy.com/snake-ladders.html">
+  <title>Snake &amp; Ladders | rdprassy Arcade</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/games.css">
+</head>
+<body class="game-page game-page--board">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="game-shell-section">
+      <div class="wrap">
+        <div class="game-titlebar">
+          <div><div class="breadcrumb"><a href="games.html">Arcade</a> / Snake &amp; Ladders</div><span class="kicker">Game 01 · Board</span><h1>Snake &amp; Ladders</h1><p>Reach square 100 first. An exact roll is required to finish.</p></div>
+          <div class="game-mode-switch" role="group" aria-label="Game mode">
+            <button class="is-active" type="button" data-game-mode="solo" aria-pressed="true">Solo vs browser</button>
+            <button type="button" data-game-mode="duo" aria-pressed="false">Two players</button>
+          </div>
+        </div>
+
+        <div class="board-game-layout">
+          <div class="board-wrap">
+            <div class="board" data-board aria-label="Snake and Ladders board, squares 1 to 100"></div>
+          </div>
+
+          <aside class="game-console" aria-label="Game controls and status">
+            <div class="game-console__topline"><span>RD BOARD SYSTEM</span><button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true" aria-label="Turn game sounds off">Sound on</button></div>
+            <div class="player-panels">
+              <article class="player-panel is-active" data-player-panel="0"><span class="player-token player-token--one" aria-hidden="true"></span><div><small>PLAYER 1</small><strong data-player-name="0">You</strong><span>Square <b data-player-position="0">0</b></span></div></article>
+              <article class="player-panel" data-player-panel="1"><span class="player-token player-token--two" aria-hidden="true"></span><div><small>PLAYER 2</small><strong data-player-name="1">Browser</strong><span>Square <b data-player-position="1">0</b></span></div></article>
+            </div>
+
+            <div class="turn-display">
+              <span class="turn-display__label">Current turn</span>
+              <strong data-turn-label>Your move</strong>
+              <p data-game-message aria-live="polite">Roll the dice to begin.</p>
+            </div>
+
+            <button class="dice-button" type="button" data-roll-dice>
+              <span class="dice-face" data-dice-face aria-hidden="true">⚄</span>
+              <span><strong>Roll dice</strong><small>Press Space or tap</small></span>
+            </button>
+
+            <div class="game-stats">
+              <div><span>Rolls</span><strong data-roll-count>0</strong></div>
+              <div><span>Best solo</span><strong data-board-best>—</strong></div>
+            </div>
+            <button class="button game-reset" type="button" data-new-board-game>New game</button>
+
+            <details class="game-rules"><summary>How to play</summary><ul><li>Players alternate rolling one die.</li><li>Ladders move you upward; snakes pull you down.</li><li>You need the exact number to land on square 100.</li><li>Rolling a six does not add an extra turn.</li></ul></details>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="game-result" data-board-result hidden>
+    <div class="game-result__card" role="dialog" aria-modal="true" aria-labelledby="board-result-title">
+      <span class="game-result__eyebrow">GAME COMPLETE</span><h2 id="board-result-title" data-board-result-title>Winner!</h2><p data-board-result-copy></p><div class="button-row"><button class="button button--primary" type="button" data-play-board-again>Play again</button><a class="button" href="games.html">Arcade home</a></div>
+    </div>
+  </div>
+
+  <footer class="game-footer"><div class="wrap"><a href="games.html">← Arcade home</a><span>Space to roll · Touch friendly</span><a href="flappy-flight.html">Next: Flappy Flight →</a></div></footer>
+  <script src="js/site.js"></script>
+  <script src="js/snake-ladders.js"></script>
+</body>
+</html>

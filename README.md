@@ -2,7 +2,7 @@
 
 Source for [www.rdprassy.com](https://www.rdprassy.com), the portfolio of Devi Prasad Choudhary Ratnala.
 
-The site includes live products, engineering case studies, applied AI work, interactive artifacts, résumé editions, writing, and a ten-film [Project Cinema](https://www.rdprassy.com/project-cinema.html).
+The site includes live products, engineering case studies, applied AI work, interactive artifacts, résumé editions, writing, a ten-film [Project Cinema](https://www.rdprassy.com/project-cinema.html), and a playable [RD Arcade](https://www.rdprassy.com/games.html).
 
 ## Local build
 
