@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play a first-to-seven Pong match against an adaptive browser opponent.">
+  <link rel="canonical" href="https://www.rdprassy.com/pong-ai.html"><title>Pong vs AI | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css"><link rel="stylesheet" href="stylesheets/games.css"><link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--pong">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header"><div class="wrap site-header__inner"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button><nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav></div></header>
+  <main id="main"><section class="game-shell-section"><div class="wrap">
+    <div class="game-titlebar"><div><div class="breadcrumb"><a href="games.html">Arcade</a> / Pong vs AI</div><span class="kicker">Game 07 · Physics</span><h1>Pong vs AI</h1><p>Read the angle, control the paddle, and be first to seven points.</p></div></div>
+    <div class="expansion-game expansion-game--wide">
+      <section class="game-surface game-surface--dark">
+        <div class="game-toolbar"><div class="game-toolbar__group"><label for="pong-difficulty">AI difficulty</label><select id="pong-difficulty" data-pong-difficulty><option value="rookie">Rookie</option><option value="pro" selected>Pro</option><option value="elite">Elite</option></select></div><button class="game-control game-control--primary" type="button" data-pong-start>Start match</button></div>
+        <div class="canvas-shell"><canvas data-pong-canvas width="960" height="540" tabindex="0" aria-label="Pong game. Use W and S, arrow keys, mouse, or touch to move."></canvas><div class="pong-scoreline"><span>YOU <strong data-pong-player>0</strong></span><span>FIRST TO 7</span><span><strong data-pong-ai>0</strong> AI</span></div><div class="game-overlay" data-pong-overlay><span class="kicker">RD SPORTS LAB</span><h2 data-pong-overlay-title>Challenge the machine.</h2><p data-pong-overlay-copy>Move with W/S, arrow keys, mouse, or touch.</p><button class="button button--primary" type="button" data-pong-overlay-button>Start match</button></div></div>
+        <div class="touch-controls"><button type="button" data-pong-up aria-label="Move paddle up">↑</button><button type="button" data-pong-pause aria-label="Pause game">Ⅱ</button><button type="button" data-pong-down aria-label="Move paddle down">↓</button></div>
+      </section>
+      <aside class="game-side-panel">
+        <div class="game-console__topline"><span>MATCH CONTROL</span><button class="sound-toggle" type="button" data-pong-sound aria-pressed="true">Sound on</button></div>
+        <div class="game-metrics"><div class="game-metric"><span>Rally</span><strong data-pong-rally>0</strong></div><div class="game-metric"><span>Best rally</span><strong data-pong-best>0</strong></div></div>
+        <div class="game-status-box" data-pong-status><strong>Awaiting serve</strong>Choose a difficulty and start the match. Connected gamepads work too.</div>
+        <button class="button game-reset" type="button" data-pong-restart>Restart match</button>
+        <div class="game-instructions"><h3>Physics tip</h3><p>Contact near the paddle edge produces a steeper return. Longer rallies gradually accelerate the ball.</p></div>
+      </aside>
+    </div>
+  </div></section></main>
+  <footer class="game-footer"><div class="wrap"><a href="cloud-2048.html">← Cloud 2048</a><span>Keyboard · Mouse · Touch · Gamepad</span><a href="defend-api.html">Next: Defend the API →</a></div></footer>
+  <script src="js/site.js"></script><script src="js/arcade-core.js"></script><script src="js/pong-ai.js"></script>
+</body>
+</html>

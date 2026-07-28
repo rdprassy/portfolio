@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Connect Four against an adaptive browser opponent or with a friend.">
+  <link rel="canonical" href="https://www.rdprassy.com/connect-four.html"><title>Connect Four | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css"><link rel="stylesheet" href="stylesheets/games.css"><link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--connect">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header"><div class="wrap site-header__inner"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button><nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav></div></header>
+  <main id="main"><section class="game-shell-section"><div class="wrap">
+    <div class="game-titlebar"><div><div class="breadcrumb"><a href="games.html">Arcade</a> / Connect Four</div><span class="kicker">Game 09 · Strategy</span><h1>Connect Four</h1><p>Build a line of four before your opponent closes the route.</p></div><div class="game-mode-switch" role="group" aria-label="Game mode"><button class="is-active" type="button" data-connect-mode="ai" aria-pressed="true">Vs browser</button><button type="button" data-connect-mode="duo" aria-pressed="false">Two players</button></div></div>
+    <div class="expansion-game">
+      <section class="game-surface"><div class="connect-board" data-connect-board aria-label="Seven-column, six-row Connect Four board"></div></section>
+      <aside class="game-side-panel">
+        <div class="game-console__topline"><span>TACTICAL BOARD</span><button class="sound-toggle" type="button" data-connect-sound aria-pressed="true">Sound on</button></div>
+        <div class="game-status-box" data-connect-status><strong>Your move</strong>Select a column to drop the red disc.</div>
+        <div class="game-metrics"><div class="game-metric"><span>Red wins</span><strong data-connect-red>0</strong></div><div class="game-metric"><span>Yellow wins</span><strong data-connect-yellow>0</strong></div><div class="game-metric"><span>Draws</span><strong data-connect-draws>0</strong></div><div class="game-metric"><span>Round</span><strong data-connect-round>1</strong></div></div>
+        <button class="button button--primary game-reset" type="button" data-connect-new>New round</button>
+        <div class="game-instructions"><h3>Controls</h3><p>Click or tap any open column. Keyboard players can use 1–7 to select a column.</p></div>
+      </aside>
+    </div>
+  </div></section></main>
+  <footer class="game-footer"><div class="wrap"><a href="defend-api.html">← Defend the API</a><span>Browser opponent · Local two-player</span><a href="portfolio-quest.html">Next: Portfolio Quest →</a></div></footer>
+  <script src="js/site.js"></script><script src="js/arcade-core.js"></script><script src="js/connect-four.js"></script>
+</body>
+</html>

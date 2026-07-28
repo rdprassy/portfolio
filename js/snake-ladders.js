@@ -235,6 +235,10 @@
     updateInterface();
     controls.playAgain.focus();
     track("game_over", { mode, winner: winnerIndex === 0 ? "player_one" : "player_two", rolls: rollCount });
+    window.rdprassyArcade?.complete("snake-ladders", {
+      won: winnerIndex === 0,
+      score: winnerIndex === 0 ? Math.max(1, 200 - rollCount) : 0
+    });
   }
 
   async function takeTurn() {
@@ -294,7 +298,10 @@
     controls.message.textContent = "Roll the dice to begin.";
     updateTokens();
     updateInterface();
-    if (announce) track("game_start", { mode });
+    if (announce) {
+      track("game_start", { mode });
+      window.rdprassyArcade?.start("snake-ladders");
+    }
   }
 
   document.querySelectorAll("[data-game-mode]").forEach((button) => {
@@ -330,4 +337,5 @@
 
   createBoard();
   resetGame(false);
+  window.rdprassyArcade?.start("snake-ladders");
 })();

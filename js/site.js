@@ -258,7 +258,11 @@
         const gamesLink = document.createElement("a");
         gamesLink.href = "games.html";
         gamesLink.textContent = "Play";
-        if (["games.html", "snake-ladders.html", "flappy-flight.html"].includes(currentPage)) {
+        if ([
+          "games.html", "snake-ladders.html", "flappy-flight.html", "code-sprint.html",
+          "algorithm-arena.html", "memory-stack.html", "cloud-2048.html", "pong-ai.html",
+          "defend-api.html", "connect-four.html", "portfolio-quest.html"
+        ].includes(currentPage)) {
           gamesLink.setAttribute("aria-current", "page");
         }
         nav.insertBefore(gamesLink, nav.querySelector('a[href="project-cinema.html"]') || notesLink);
@@ -452,7 +456,7 @@
 
   function initialiseReveals() {
     const revealItems = document.querySelectorAll(
-      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card, .cinema-card, .cinema-feature, .cinema-projects-callout, .game-library-card, .arcade-home__games, .arcade-values"
+      ".section-heading, .panel, .card, .project-row, .timeline-item, .skill-group, .tag-list, .quote-band, .cta, .proof, .brand-showcase, .impact-note, .feed-card, .resume-option, .resume-section, .architecture-card, .decision, .evaluation-grid article, .artifact-card, .dataset-card, .cinema-card, .cinema-feature, .cinema-projects-callout, .game-library-card, .arcade-home__games, .arcade-values, .arcade-catalog-card, .arcade-stat-grid, .achievement-list"
     );
 
     revealItems.forEach(function (item, index) {

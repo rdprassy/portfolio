@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Run through five engineering chapters in Portfolio Quest, a browser platform game.">
+  <link rel="canonical" href="https://www.rdprassy.com/portfolio-quest.html"><title>Portfolio Quest | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css"><link rel="stylesheet" href="stylesheets/games.css"><link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--quest">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header"><div class="wrap site-header__inner"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button><nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav></div></header>
+  <main id="main"><section class="game-shell-section"><div class="wrap">
+    <div class="game-titlebar"><div><div class="breadcrumb"><a href="games.html">Arcade</a> / Portfolio Quest</div><span class="kicker">Game 10 · Platformer</span><h1>Portfolio Quest</h1><p>Run through five career chapters and collect every engineering milestone.</p></div></div>
+    <div class="expansion-game expansion-game--wide">
+      <section class="game-surface game-surface--dark">
+        <div class="canvas-shell"><canvas data-quest-canvas width="960" height="540" tabindex="0" aria-label="Portfolio Quest platform game. Use arrow keys or A and D to move, and Space to jump."></canvas><div class="quest-progress"><span data-quest-chapter>Chapter 1 · Foundations</span><span><b data-quest-collected>0</b>/5 milestones</span></div><div class="game-overlay" data-quest-overlay><span class="kicker">THE ENGINEERING JOURNEY</span><h2 data-quest-overlay-title>Ready for the first chapter?</h2><p data-quest-overlay-copy>Move with A/D or arrows. Jump with Space or the touch controls.</p><button class="button button--primary" type="button" data-quest-start>Begin quest</button></div></div>
+        <div class="touch-controls"><button type="button" data-quest-left aria-label="Move left">←</button><button type="button" data-quest-jump aria-label="Jump">↑</button><button type="button" data-quest-right aria-label="Move right">→</button></div>
+      </section>
+      <aside class="game-side-panel">
+        <div class="game-console__topline"><span>QUEST LOG</span><button class="sound-toggle" type="button" data-quest-sound aria-pressed="true">Sound on</button></div>
+        <div class="game-metrics"><div class="game-metric"><span>Score</span><strong data-quest-score>0</strong></div><div class="game-metric"><span>Best</span><strong data-quest-best>0</strong></div><div class="game-metric"><span>Lives</span><strong data-quest-lives>3</strong></div><div class="game-metric"><span>Chapter</span><strong data-quest-level>1/5</strong></div></div>
+        <div class="game-status-box" data-quest-status><strong>Journey not started</strong>Collect the milestone and reach the portal in every chapter.</div>
+        <button class="button game-reset" type="button" data-quest-restart>Restart quest</button>
+        <div class="game-instructions"><h3>Five chapters</h3><p>Foundations, enterprise systems, cloud scale, platform engineering, and applied AI.</p></div>
+      </aside>
+    </div>
+  </div></section></main>
+  <footer class="game-footer"><div class="wrap"><a href="connect-four.html">← Connect Four</a><span>Keyboard · Touch · Five chapters</span><a href="games.html">Arcade home →</a></div></footer>
+  <script src="js/site.js"></script><script src="js/arcade-core.js"></script><script src="js/portfolio-quest.js"></script>
+</body>
+</html>

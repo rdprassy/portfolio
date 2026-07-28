@@ -110,6 +110,7 @@
     controls.status.textContent = "Flight started. Score 0.";
     canvas.focus({ preventScroll: true });
     track("game_start");
+    window.rdprassyArcade?.start("flappy-flight");
     flap();
   }
 
@@ -160,6 +161,7 @@
     );
     tone(175, .24, .045, "sawtooth");
     track("game_over", { score, personal_best: isBest });
+    window.rdprassyArcade?.complete("flappy-flight", { completed: true, score });
   }
 
   function addPipe() {

@@ -6,7 +6,7 @@
   <meta name="description" content="Play browser games in the rdprassy Arcade: Snake & Ladders and Flappy Flight, built for keyboard, mouse, and touch.">
   <meta name="author" content="Devi Prasad Choudhary Ratnala">
   <meta property="og:title" content="rdprassy Arcade — Play in the Portfolio">
-  <meta property="og:description" content="Two complete browser games, no download or account required.">
+  <meta property="og:description" content="Ten complete browser games with local achievements, no download or account required.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.rdprassy.com/games.html">
   <meta property="og:image" content="https://www.rdprassy.com/images/og.png">
@@ -16,6 +16,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
   <link rel="stylesheet" href="stylesheets/portfolio.css">
   <link rel="stylesheet" href="stylesheets/games.css">
+  <link rel="stylesheet" href="stylesheets/arcade-expansion.css">
 </head>
 <body class="arcade-page">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -36,7 +37,7 @@
           <div class="breadcrumb"><a href="index.html">Home</a> / Arcade</div>
           <span class="kicker">Playable portfolio · No install</span>
           <h1>Take a break.<br><em>Play something.</em></h1>
-          <p>Two complete browser games built into the portfolio. Your best scores stay on this device, and every game works with touch as well as a keyboard or mouse.</p>
+          <p>Ten complete browser games built into the portfolio. Best scores, achievements, and progress stay on this device, with no account or download required.</p>
           <div class="hero-actions"><a class="button button--primary" href="#choose-game">Choose a game ↓</a><a class="button" href="projects.html">Back to engineering</a></div>
         </div>
         <div class="arcade-machine" aria-hidden="true">
@@ -57,7 +58,7 @@
       <div class="wrap">
         <div class="section-heading">
           <div class="section-heading__copy"><span class="kicker">Choose your challenge</span><h2>Classic rules. Portfolio energy.</h2><p>Start with luck and strategy on the board, or test your timing in an endless flight.</p></div>
-          <span class="arcade-online"><span aria-hidden="true"></span> 2 games online</span>
+          <span class="arcade-online"><span aria-hidden="true"></span> 10 games online</span>
         </div>
         <div class="game-library">
           <article class="game-library-card game-library-card--board">
@@ -100,6 +101,43 @@
             </div>
           </article>
         </div>
+
+        <div class="arcade-catalog-heading">
+          <div><span class="kicker">Eight new challenges</span><h2>More ways to think, react, and build.</h2></div>
+          <p>Every game highlights a different part of frontend engineering: algorithms, state, physics, AI behavior, persistence, or systems thinking.</p>
+        </div>
+        <div class="arcade-catalog">
+          <article class="arcade-catalog-card arcade-catalog-card--code"><span class="arcade-catalog-card__icon" aria-hidden="true">&gt;_</span><span class="arcade-catalog-card__meta">Typing · 60 seconds</span><h3>Code Sprint</h3><p>Type real engineering commands, build a combo, and race the deployment clock.</p><span data-game-progress="code-sprint">Not played yet</span><a href="code-sprint.html">Start sprint →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--algo"><span class="arcade-catalog-card__icon" aria-hidden="true">⌁</span><span class="arcade-catalog-card__meta">Algorithms · Visual</span><h3>Algorithm Arena</h3><p>Design a grid, compare BFS and Dijkstra, then watch the winning route emerge.</p><span data-game-progress="algorithm-arena">Not played yet</span><a href="algorithm-arena.html">Enter arena →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--memory"><span class="arcade-catalog-card__icon" aria-hidden="true">▦</span><span class="arcade-catalog-card__meta">Memory · Portfolio</span><h3>Memory Stack</h3><p>Match technologies to their project outcomes before the timer runs out.</p><span data-game-progress="memory-stack">Not played yet</span><a href="memory-stack.html">Match the stack →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--cloud"><span class="arcade-catalog-card__icon" aria-hidden="true">2048</span><span class="arcade-catalog-card__meta">Puzzle · Cloud</span><h3>2048: Cloud Edition</h3><p>Merge infrastructure from code to a resilient global platform.</p><span data-game-progress="cloud-2048">Not played yet</span><a href="cloud-2048.html">Scale the cloud →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--pong"><span class="arcade-catalog-card__icon" aria-hidden="true">●</span><span class="arcade-catalog-card__meta">Physics · AI opponent</span><h3>Pong vs AI</h3><p>Choose an AI difficulty, read the angle, and win the first-to-seven match.</p><span data-game-progress="pong-ai">Not played yet</span><a href="pong-ai.html">Challenge the AI →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--defend"><span class="arcade-catalog-card__icon" aria-hidden="true">⌁</span><span class="arcade-catalog-card__meta">Strategy · Systems</span><h3>Defend the API</h3><p>Deploy caches, queues, and rate limits before traffic overwhelms the service.</p><span data-game-progress="defend-api">Not played yet</span><a href="defend-api.html">Protect production →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--connect"><span class="arcade-catalog-card__icon" aria-hidden="true">●●</span><span class="arcade-catalog-card__meta">Strategy · 1–2 players</span><h3>Connect Four</h3><p>Play locally against a friend or face an adaptive browser opponent.</p><span data-game-progress="connect-four">Not played yet</span><a href="connect-four.html">Drop a disc →</a></article>
+          <article class="arcade-catalog-card arcade-catalog-card--quest"><span class="arcade-catalog-card__icon" aria-hidden="true">◆</span><span class="arcade-catalog-card__meta">Platformer · Career quest</span><h3>Portfolio Quest</h3><p>Run, jump, and collect milestones across five chapters of an engineering journey.</p><span data-game-progress="portfolio-quest">Not played yet</span><a href="portfolio-quest.html">Begin the quest →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section arcade-dashboard-section" data-arcade-dashboard>
+      <div class="wrap">
+        <div class="arcade-catalog-heading">
+          <div><span class="kicker">Device-local progress</span><h2>Your arcade record.</h2></div>
+          <p>Progress stays in this browser. No account, tracking profile, or cloud save is required.</p>
+        </div>
+        <div class="arcade-stat-grid">
+          <div><strong data-arcade-total-plays>0</strong><span>Total plays</span></div>
+          <div><strong data-arcade-games-played>0/10</strong><span>Games explored</span></div>
+          <div><strong data-arcade-wins>0</strong><span>Wins &amp; completions</span></div>
+          <div><strong data-arcade-achievements>0/5</strong><span>Achievements</span></div>
+        </div>
+        <div class="achievement-list" data-achievement-list aria-label="Arcade achievements"></div>
+        <div class="arcade-dashboard-lower">
+          <article class="daily-challenge">
+            <span class="kicker">Daily challenge</span><h3 data-daily-title>Loading today’s game…</h3><p data-daily-copy>One completed run marks today’s challenge.</p><a class="button button--primary" href="games.html" data-daily-link>Accept challenge →</a>
+          </article>
+          <article class="local-leaderboard"><span class="kicker">Device leaderboard</span><h3>Personal bests</h3><ol data-local-leaderboard><li class="is-empty">Complete a scored game to create your local leaderboard.</li></ol></article>
+        </div>
       </div>
     </section>
 
@@ -119,5 +157,6 @@
 
   <footer class="site-footer"><div class="wrap"><div class="footer-grid"><div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>A portfolio with systems to inspect, stories to watch, and games to play.</p></div><div class="footer-col"><strong>Play</strong><a href="snake-ladders.html">Snake &amp; Ladders</a><a href="flappy-flight.html">Flappy Flight</a></div><div class="footer-col"><strong>Explore</strong><a href="projects.html">Projects</a><a href="project-cinema.html">Project Cinema</a><a href="ai-engineering.html">Applied AI</a></div><div class="footer-col"><strong>Connect</strong><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Play responsibly. Build curiously.</span></div></div></footer>
   <script src="js/site.js"></script>
+  <script src="js/arcade-core.js"></script>
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Protect a production service from traffic waves using caches, queues, and rate limits.">
+  <link rel="canonical" href="https://www.rdprassy.com/defend-api.html"><title>Defend the API | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css"><link rel="stylesheet" href="stylesheets/games.css"><link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--defend">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header"><div class="wrap site-header__inner"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button><nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav></div></header>
+  <main id="main"><section class="game-shell-section"><div class="wrap">
+    <div class="game-titlebar"><div><div class="breadcrumb"><a href="games.html">Arcade</a> / Defend the API</div><span class="kicker">Game 08 · Systems strategy</span><h1>Defend the API</h1><p>Spend capacity carefully and stop traffic waves before production health reaches zero.</p></div></div>
+    <div class="expansion-game">
+      <section class="game-surface game-surface--dark">
+        <div class="defend-resource-bar"><div><span>Health</span><strong data-defend-health>100</strong></div><div><span>Capacity</span><strong data-defend-capacity>120</strong></div><div><span>Wave</span><strong data-defend-wave>0/6</strong></div></div>
+        <div class="canvas-shell"><canvas data-defend-canvas width="960" height="600" tabindex="0" aria-label="API defense strategy board with three traffic lanes."></canvas><div class="game-overlay" data-defend-overlay><span class="kicker">PRODUCTION CONTROL</span><h2 data-defend-overlay-title>Traffic is approaching.</h2><p data-defend-overlay-copy>Choose a defense, then tap a lane to deploy it.</p><button class="button button--primary" type="button" data-defend-start>Start incident</button></div></div>
+      </section>
+      <aside class="game-side-panel">
+        <div class="game-console__topline"><span>DEFENSE TOOLBOX</span><button class="sound-toggle" type="button" data-defend-sound aria-pressed="true">Sound on</button></div>
+        <div class="defense-buttons">
+          <button class="game-control is-selected" type="button" data-defense="rate"><strong>Rate limiter · 35</strong><small>Fast, focused protection</small></button>
+          <button class="game-control" type="button" data-defense="cache"><strong>Cache · 50</strong><small>Handles repeated requests</small></button>
+          <button class="game-control" type="button" data-defense="queue"><strong>Queue · 65</strong><small>Slows an entire lane</small></button>
+        </div>
+        <div class="game-metrics"><div class="game-metric"><span>Blocked</span><strong data-defend-blocked>0</strong></div><div class="game-metric"><span>Best</span><strong data-defend-best>0</strong></div></div>
+        <div class="game-status-box" data-defend-status><strong>Runbook ready</strong>Deploy defenses where traffic pressure is highest.</div>
+        <button class="button game-reset" type="button" data-defend-restart>Restart incident</button>
+        <div class="game-instructions"><h3>Defense behavior</h3><ul><li>Rate limiter: high damage, short range.</li><li>Cache: strongest against repeat traffic.</li><li>Queue: slows every request in its lane.</li></ul></div>
+      </aside>
+    </div>
+  </div></section></main>
+  <footer class="game-footer"><div class="wrap"><a href="pong-ai.html">← Pong vs AI</a><span>Select a defense, then tap a lane</span><a href="connect-four.html">Next: Connect Four →</a></div></footer>
+  <script src="js/site.js"></script><script src="js/arcade-core.js"></script><script src="js/defend-api.js"></script>
+</body>
+</html>

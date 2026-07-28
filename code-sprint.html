@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Code Sprint, a 60-second engineering typing challenge in the rdprassy Arcade.">
+  <link rel="canonical" href="https://www.rdprassy.com/code-sprint.html">
+  <title>Code Sprint | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/games.css">
+  <link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--code">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header"><div class="wrap site-header__inner"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button><nav class="site-nav" id="primary-nav" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav></div></header>
+  <main id="main"><section class="game-shell-section"><div class="wrap">
+    <div class="game-titlebar"><div><div class="breadcrumb"><a href="games.html">Arcade</a> / Code Sprint</div><span class="kicker">Game 03 · Typing</span><h1>Code Sprint</h1><p>Ship accurate commands before the sixty-second deployment window closes.</p></div><div class="flight-scoreboard"><div><span>Time</span><strong data-code-time>60</strong></div><div><span>Score</span><strong data-code-score>0</strong></div></div></div>
+    <div class="expansion-game">
+      <section class="game-surface game-surface--dark" aria-label="Code Sprint terminal">
+        <div class="game-toolbar"><div class="game-toolbar__group"><label for="code-difficulty">Difficulty</label><select id="code-difficulty" data-code-difficulty><option value="starter">Starter</option><option value="engineer" selected>Engineer</option><option value="architect">Architect</option></select></div><button class="game-control game-control--primary" type="button" data-code-start>Start sprint</button></div>
+        <div class="code-terminal">
+          <div class="code-terminal__bar"><span>rdprassy@arcade:~/deploy</span><span data-code-stage>WAITING</span></div>
+          <div class="code-terminal__prompt" data-code-prompt aria-live="polite">Press Start Sprint to load the first command.</div>
+          <label class="sr-only" for="code-input">Type the displayed command</label><input id="code-input" data-code-input autocomplete="off" autocapitalize="off" spellcheck="false" disabled placeholder="Type the command exactly…">
+          <div class="code-terminal__feedback" data-code-feedback>Accuracy builds the multiplier.</div>
+        </div>
+      </section>
+      <aside class="game-side-panel">
+        <div class="game-console__topline"><span>SPRINT TELEMETRY</span><button class="sound-toggle" type="button" data-code-sound aria-pressed="true">Sound on</button></div>
+        <div class="game-metrics"><div class="game-metric"><span>Commands</span><strong data-code-completed>0</strong></div><div class="game-metric"><span>Combo</span><strong data-code-combo>×1</strong></div><div class="game-metric"><span>WPM</span><strong data-code-wpm>0</strong></div><div class="game-metric"><span>Best</span><strong data-code-best>0</strong></div></div>
+        <div class="game-status-box" data-code-status><strong>Terminal ready</strong>Select a difficulty and start the sprint.</div>
+        <button class="button game-reset" type="button" data-code-reset>Reset sprint</button>
+        <div class="game-instructions"><h3>Scoring</h3><p>Finish commands accurately to raise the combo. Errors reset the multiplier; harder commands earn more points.</p></div>
+      </aside>
+    </div>
+  </div></section></main>
+  <footer class="game-footer"><div class="wrap"><a href="games.html">← Arcade home</a><span>Keyboard challenge · 60 seconds</span><a href="algorithm-arena.html">Next: Algorithm Arena →</a></div></footer>
+  <script src="js/site.js"></script><script src="js/arcade-core.js"></script><script src="js/code-sprint.js"></script>
+</body>
+</html>
