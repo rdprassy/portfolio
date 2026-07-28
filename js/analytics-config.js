@@ -7,7 +7,7 @@
    */
   window.RDPRASSY_ANALYTICS_CONFIG = Object.freeze({
     googleMeasurementId: "G-GQ2BFW2HKJ",
-    consentVersion: "2026-07-27",
+    consentVersion: "2026-07-28-v2",
     debug: false
   });
 })();

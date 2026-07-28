@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Live products and selected full-stack, cloud, enterprise, AI, Web3, and research projects by rdprassy.">
   <title>Selected Projects | rdprassy</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css?v=footer-tab-1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2"><link rel="stylesheet" href="stylesheets/portfolio.css?v=portfolio-v4">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -13,6 +13,36 @@
     <section class="page-hero"><div class="wrap page-hero__grid"><div><div class="breadcrumb"><a href="index.html">Home</a> / Projects</div><span class="kicker">Selected work</span><h1 class="page-title">Products where software meets a real operational need.</h1></div><p class="page-lead">Live public products alongside case studies spanning AI, Web3, leadership insight, cloud maintenance, enterprise analytics, insurance, platform services, and biometric research.</p></div></section>
 
     <section class="section section--tight"><div class="wrap"><div class="impact-note"><strong>About outcomes</strong><p>These case studies state verified delivered capabilities and operational results. Internal business metrics are not published here, so no private or unverified numbers have been invented.</p></div></div></section>
+
+    <section class="section section--white" id="project-index"><div class="wrap">
+      <div class="section-heading"><div class="section-heading__copy"><span class="kicker">Find the relevant work</span><h2>Filter the portfolio by engineering context.</h2><p>Choose a discipline or search by technology, product, or problem. Every result links to evidence elsewhere in the portfolio.</p></div><span class="project-filter-count" data-project-count aria-live="polite">10 projects</span></div>
+      <div class="project-filter" data-project-filter>
+        <div class="project-filter__controls" role="group" aria-label="Filter projects">
+          <button type="button" aria-pressed="true" data-project-filter-value="all">All</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="ai">AI</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="java">Java</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="react">React</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="cloud">Cloud</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="enterprise">Enterprise</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="web3">Web3</button>
+          <button type="button" aria-pressed="false" data-project-filter-value="research">Research</button>
+        </div>
+        <label class="project-filter__search"><span>Search projects</span><input type="search" placeholder="Try RAG, AWS, insurance…" autocomplete="off" data-project-search></label>
+      </div>
+      <div class="project-filter-grid" data-project-grid>
+        <article class="project-filter-card" data-project-card data-project-tags="ai rag python retrieval evaluation open source"><a href="rag-studio.html"><span>AI · Open source</span><h3>RAG Studio</h3><p>Evaluation-first hybrid retrieval with grounded citations and traces.</p><strong>Inspect ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="ai enterprise analytics agents rag cloud react"><a href="ai-engineering.html"><span>AI · Enterprise</span><h3>Applied AI Engineering</h3><p>Retail analytics, document intelligence, and agent-assisted reliability.</p><strong>Read ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="cloud react ai product live"><a href="live-projects.html#aligniq"><span>AI · Live product</span><h3>AlignIQ</h3><p>Evidence-backed requirements and delivery alignment intelligence.</p><strong>Launch ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="web3 react blockchain product live"><a href="live-projects.html#nft-terminal"><span>Web3 · Live product</span><h3>NFT Terminal</h3><p>A no-code ERC-721 creator launchpad on Monad Testnet.</p><strong>Launch ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="web3 react blockchain wallet product live"><a href="live-projects.html#wallet-checker"><span>Web3 · Live product</span><h3>Wallet Checker</h3><p>A focused address and balance utility with resilient RPC configuration.</p><strong>Launch ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="cloud react aws dynamodb lambda enterprise operations"><a href="#amazon-impact"><span>Cloud · Operations</span><h3>Amazon Impact</h3><p>Serverless weekly operations intelligence and production ownership.</p><strong>Study ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="java react typescript cloud enterprise audit spring boot"><a href="#oracle-pcn"><span>Cloud · Enterprise</span><h3>Oracle PCN</h3><p>Maintenance scheduling with durable, auditable change history.</p><strong>Study ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="java python django cloud enterprise analytics"><a href="#teradata-vantage"><span>Java · Analytics</span><h3>Teradata Vantage</h3><p>Analytical-function tooling across desktop and cloud provisioning.</p><strong>Study ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="java spring boot enterprise insurance"><a href="#axa"><span>Java · Insurance</span><h3>AXA Premium Engine</h3><p>On-demand premium calculation and repeatable build automation.</p><strong>Study ↗</strong></a></article>
+        <article class="project-filter-card" data-project-card data-project-tags="research matlab biometrics algorithms"><a href="#palmprint-system"><span>Research · Biometrics</span><h3>Palmprint Recognition</h3><p>PSO segmentation, Gabor features, and distance-based matching.</p><strong>Study ↗</strong></a></article>
+      </div>
+      <div class="project-filter-empty" data-project-empty hidden><strong>No exact match.</strong><p>Try a broader term or reset the category filter.</p><button class="button" type="button" data-project-reset>Show all projects</button></div>
+    </div></section>
 
     <section class="section section--dark" id="project-films"><div class="wrap">
       <div class="cinema-projects-callout">
@@ -49,6 +79,19 @@
         <article class="card"><span class="card__icon">O</span><h3>Ownership</h3><p>Handled high-severity incidents and carried fixes through root-cause resolution, improving the product beyond the immediate recovery.</p></article>
       </div>
       <div class="impact-note"><strong>Outcome</strong><p>Gave leadership a repeatable weekly operational view while strengthening the application through durable incident fixes.</p></div>
+      <div class="architecture-card architecture-card--project">
+        <div class="architecture-card__header"><div><span class="kicker">Public-safe architecture</span><h3>Operational signal to leadership action</h3></div><span class="architecture-card__legend">Serverless processing with durable data and production feedback</span></div>
+        <div class="architecture-flow architecture-flow--four" role="img" aria-label="Operational data flows through AWS Lambda processing into DynamoDB, then a React leadership view, with incident learning feeding improvements back into the system">
+          <div class="architecture-node"><span>01</span><strong>Operational inputs</strong><small>Weekly source data and review context</small></div>
+          <span class="architecture-arrow" aria-hidden="true">→</span>
+          <div class="architecture-node architecture-node--accent"><span>02</span><strong>AWS Lambda</strong><small>Serverless transformation and workflow logic</small></div>
+          <span class="architecture-arrow" aria-hidden="true">→</span>
+          <div class="architecture-node"><span>03</span><strong>DynamoDB</strong><small>Durable operational state and access patterns</small></div>
+          <span class="architecture-arrow" aria-hidden="true">→</span>
+          <div class="architecture-node"><span>04</span><strong>React decision view</strong><small>Consistent weekly insight for leadership</small></div>
+        </div>
+        <div class="architecture-rails"><span>Monitoring</span><span>Incident response</span><span>Root-cause analysis</span><span>Durable corrective action</span></div>
+      </div>
     </div></section>
 
     <section class="section" id="oracle-pcn"><div class="wrap">
@@ -108,5 +151,5 @@
     <section class="section section--tight"><div class="wrap"><div class="cta"><h2>Want to discuss the engineering behind the work?</h2><p>I can speak in more depth about architecture choices and lessons where confidentiality allows.</p><div class="button-row"><a class="button button--light" href="contact.html">Start a conversation ↗</a></div></div></div></section>
   </main>
   <footer class="site-footer"><div class="wrap"><div class="footer-grid"><div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Products across enterprise applications, cloud operations, analytics, and applied research.</p></div><div class="footer-col"><strong>Work</strong><a href="experience.html">Experience</a><a href="skills.html">Skills</a><a href="certifications.html">Certifications</a></div><div class="footer-col"><strong>Public</strong><a href="https://github.com/rdprassy">GitHub ↗</a><a href="notes.html">Notes</a></div><div class="footer-col"><strong>Connect</strong><a href="https://www.linkedin.com/in/rdprassy">LinkedIn ↗</a><a href="contact.html">Contact</a></div></div><div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Hyderabad, India</span></div></div></footer>
-  <script src="js/site.js?v=footer-tab-1"></script>
+  <script src="js/site.js?v=portfolio-v4"></script>
 </body></html>

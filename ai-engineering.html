@@ -7,7 +7,7 @@
   <link rel="canonical" href="https://www.rdprassy.com/ai-engineering.html">
   <title>Applied AI Engineering Case Study | rdprassy</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
-  <link rel="stylesheet" href="stylesheets/portfolio.css?v=footer-tab-1">
+  <link rel="stylesheet" href="stylesheets/portfolio.css?v=portfolio-v4">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -96,6 +96,46 @@
             <p>Agents monitoring 20+ data pipelines and triaging approximately 50 failures per month, with alerts that keep people in control of recovery.</p>
             <div class="evidence-line"><span>Reported impact</span><strong>10% lower incident response time</strong></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark" id="ai-system-maps">
+      <div class="wrap">
+        <div class="section-heading">
+          <div class="section-heading__copy">
+            <span class="kicker">Architecture at a glance</span>
+            <h2>Two systems, two different kinds of leverage.</h2>
+            <p>These public-safe maps show responsibilities and control points without exposing private infrastructure, data, or implementation detail.</p>
+          </div>
+        </div>
+        <div class="architecture-stack">
+          <div class="architecture-card">
+            <div class="architecture-card__header"><div><span class="kicker">Retail360</span><h3>From retail signals to decision support</h3></div><span class="architecture-card__legend">Reported reach: approximately 50 stakeholders across 5+ accounts</span></div>
+            <div class="architecture-flow architecture-flow--four" role="img" aria-label="Retail account data flows through governed services and analytical processing into an AI-assisted decision surface">
+              <div class="architecture-node"><span>01</span><strong>Retail signals</strong><small>Account, sales, and operational context</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node"><span>02</span><strong>Governed services</strong><small>Validation, access, business rules, APIs</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node architecture-node--accent"><span>03</span><strong>AI-assisted analysis</strong><small>Patterns, summaries, and decision context</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node"><span>04</span><strong>Decision surface</strong><small>Evidence-led views for sales and operations</small></div>
+            </div>
+            <div class="architecture-rails"><span>Account boundaries</span><span>Data quality</span><span>Traceable outputs</span><span>Human judgment</span></div>
+          </div>
+          <div class="architecture-card">
+            <div class="architecture-card__header"><div><span class="kicker">Agent-assisted reliability</span><h3>From pipeline failure to controlled response</h3></div><span class="architecture-card__legend">Reported scope: 20+ pipelines and approximately 50 monthly triages</span></div>
+            <div class="architecture-flow architecture-flow--four" role="img" aria-label="Pipeline telemetry flows into specialized triage agents, then evidence-backed alerts, and finally a human-controlled recovery workflow">
+              <div class="architecture-node"><span>01</span><strong>Pipeline telemetry</strong><small>Failures, logs, status, and recent changes</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node architecture-node--accent"><span>02</span><strong>Triage agents</strong><small>Classify, correlate, and propose next checks</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node"><span>03</span><strong>Evidence-backed alert</strong><small>Context, confidence, ownership, escalation</small></div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node"><span>04</span><strong>Human recovery</strong><small>Approve action, resolve, and preserve learning</small></div>
+            </div>
+            <div class="architecture-rails"><span>Read-only by default</span><span>Tool allowlists</span><span>Audit trail</span><span>Escalation policy</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -220,6 +260,6 @@
       <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Public-safe case study · Hyderabad, India</span></div>
     </div>
   </footer>
-  <script src="js/site.js?v=footer-tab-1"></script>
+  <script src="js/site.js?v=portfolio-v4"></script>
 </body>
 </html>

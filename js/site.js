@@ -17,10 +17,13 @@
       return /(?:^|\/)site\.js(?:[?#].*)?$/.test(script.src || "");
     });
     const analyticsUrl = siteScript && siteScript.src
-      ? new URL("analytics.js", siteScript.src).href
-      : "js/analytics.js";
+      ? new URL("analytics.js", siteScript.src)
+      : new URL("js/analytics.js", document.baseURI);
+    if (siteScript && siteScript.src) {
+      analyticsUrl.search = new URL(siteScript.src).search;
+    }
     const analyticsScript = document.createElement("script");
-    analyticsScript.src = analyticsUrl;
+    analyticsScript.src = analyticsUrl.href;
     analyticsScript.async = true;
     analyticsScript.dataset.rdprassyAnalytics = "";
     document.head.appendChild(analyticsScript);
@@ -203,6 +206,40 @@
     }
   }
 
+  function initialiseOpportunityBar() {
+    const header = document.querySelector(".site-header");
+    if (!header || document.querySelector("[data-opportunity-bar]")) {
+      return;
+    }
+
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem("rdprassy-opportunity-bar-dismissed") === "true";
+    } catch (error) {
+      dismissed = false;
+    }
+    if (dismissed) {
+      return;
+    }
+
+    const bar = document.createElement("aside");
+    bar.className = "opportunity-bar";
+    bar.dataset.opportunityBar = "";
+    bar.setAttribute("aria-label", "Availability and contact");
+    bar.innerHTML = '<div class="wrap opportunity-bar__inner"><p><span class="opportunity-bar__status" aria-hidden="true"></span><strong>Open to thoughtful engineering conversations</strong><span>Collaboration · speaking · mentoring · selected opportunities</span></p><div><a href="mailto:rdprassy@gmail.com" data-track="availability_contact">Contact me ↗</a><button type="button" aria-label="Dismiss availability message" data-opportunity-dismiss>×</button></div></div>';
+    header.insertAdjacentElement("afterend", bar);
+
+    const dismissButton = bar.querySelector("[data-opportunity-dismiss]");
+    dismissButton.addEventListener("click", function () {
+      bar.remove();
+      try {
+        sessionStorage.setItem("rdprassy-opportunity-bar-dismissed", "true");
+      } catch (error) {
+        // The dismiss action still works for the current page.
+      }
+    });
+  }
+
   function setTheme(theme) {
     root.dataset.theme = theme;
     document.querySelectorAll("[data-theme-toggle]").forEach(function (button) {
@@ -227,12 +264,25 @@
 
   function enrichNavigation() {
     document.querySelectorAll("[data-site-nav]").forEach(function (nav) {
+      const aboutLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
+        return link.getAttribute("href") === "about.html";
+      });
       const notesLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
         return link.getAttribute("href") === "notes.html";
       });
       const legacyLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
         return link.getAttribute("href") === "index_rdp.html";
       });
+
+      if (aboutLink && !nav.querySelector('a[href="recruiter.html"]')) {
+        const recruiterLink = document.createElement("a");
+        recruiterLink.href = "recruiter.html";
+        recruiterLink.textContent = "Recruiter";
+        if (currentPage === "recruiter.html") {
+          recruiterLink.setAttribute("aria-current", "page");
+        }
+        nav.insertBefore(recruiterLink, aboutLink);
+      }
 
       if (notesLink && !nav.querySelector('a[href="ai-engineering.html"]')) {
         const aiLink = document.createElement("a");
@@ -288,6 +338,17 @@
         nav.insertBefore(nowLink, legacyLink);
       }
 
+      if (!nav.querySelector("[data-command-open]")) {
+        const searchButton = document.createElement("button");
+        searchButton.className = "nav-search";
+        searchButton.type = "button";
+        searchButton.dataset.commandOpen = "";
+        searchButton.setAttribute("aria-label", "Search the portfolio");
+        searchButton.innerHTML = '<span aria-hidden="true">⌕</span><span>Search</span><kbd>⌘K</kbd>';
+        const contactLink = nav.querySelector(".nav-cta");
+        nav.insertBefore(searchButton, contactLink || null);
+      }
+
       if (!nav.querySelector("[data-theme-toggle]")) {
         const themeButton = document.createElement("button");
         themeButton.className = "theme-button";
@@ -304,6 +365,7 @@
   initialiseTheme();
   assignSectionAnchors();
   initialiseSmartBack();
+  initialiseOpportunityBar();
   window.addEventListener("pageshow", restoreScrollPosition);
 
   function initialiseFooterShortcut() {
@@ -366,6 +428,439 @@
     });
   }
 
+  function initialiseProjectFilters() {
+    const filterRoot = document.querySelector("[data-project-filter]");
+    const grid = document.querySelector("[data-project-grid]");
+    if (!filterRoot || !grid) {
+      return;
+    }
+
+    const buttons = Array.from(filterRoot.querySelectorAll("[data-project-filter-value]"));
+    const search = filterRoot.querySelector("[data-project-search]");
+    const cards = Array.from(grid.querySelectorAll("[data-project-card]"));
+    const count = document.querySelector("[data-project-count]");
+    const empty = document.querySelector("[data-project-empty]");
+    const reset = document.querySelector("[data-project-reset]");
+    let activeFilter = "all";
+
+    function normalise(value) {
+      return String(value || "").toLowerCase().replace(/[^a-z0-9+#.]+/g, " ").trim();
+    }
+
+    function applyFilters() {
+      const query = normalise(search ? search.value : "");
+      let visibleCount = 0;
+
+      cards.forEach(function (card) {
+        const tags = normalise(card.dataset.projectTags);
+        const text = normalise(card.textContent);
+        const matchesCategory = activeFilter === "all" || tags.split(" ").includes(activeFilter);
+        const matchesQuery = !query || query.split(" ").every(function (term) {
+          return tags.includes(term) || text.includes(term);
+        });
+        const visible = matchesCategory && matchesQuery;
+        card.hidden = !visible;
+        if (visible) {
+          visibleCount += 1;
+        }
+      });
+
+      if (count) {
+        count.textContent = visibleCount + (visibleCount === 1 ? " project" : " projects");
+      }
+      if (empty) {
+        empty.hidden = visibleCount !== 0;
+      }
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activeFilter = button.dataset.projectFilterValue || "all";
+        buttons.forEach(function (item) {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        applyFilters();
+        trackEvent("project_filter_use", { filter: activeFilter });
+      });
+    });
+
+    if (search) {
+      let searchTimer = 0;
+      search.addEventListener("input", function () {
+        applyFilters();
+        window.clearTimeout(searchTimer);
+        searchTimer = window.setTimeout(function () {
+          const query = normalise(search.value);
+          if (query) {
+            trackEvent("project_search", { query_length: query.length });
+          }
+        }, 600);
+      });
+    }
+
+    if (reset) {
+      reset.addEventListener("click", function () {
+        activeFilter = "all";
+        buttons.forEach(function (button) {
+          button.setAttribute("aria-pressed", String(button.dataset.projectFilterValue === "all"));
+        });
+        if (search) {
+          search.value = "";
+        }
+        applyFilters();
+      });
+    }
+
+    applyFilters();
+  }
+
+  function initialiseCommandPalette() {
+    if (document.querySelector("[data-command-palette]")) {
+      return;
+    }
+
+    const pages = [
+      { title: "Recruiter overview", detail: "60-second professional brief", href: "recruiter.html", group: "Start", keywords: "hire role fit overview resume career" },
+      { title: "Selected projects", detail: "Filterable engineering case studies", href: "projects.html", group: "Work", keywords: "portfolio java react cloud enterprise research" },
+      { title: "Live products", detail: "Public demos and current builds", href: "live-projects.html", group: "Work", keywords: "vercel aligniq web3 rag studio" },
+      { title: "Applied AI engineering", detail: "RAG, Retail360, and agent reliability", href: "ai-engineering.html", group: "AI", keywords: "artificial intelligence agents architecture evaluation" },
+      { title: "RAG Studio", detail: "Open evaluation-first retrieval system", href: "rag-studio.html", group: "AI", keywords: "retrieval citations reranking hybrid search" },
+      { title: "Retrieval Systems Lab", detail: "Interactive grounded-answer demo", href: "ai-lab.html", group: "AI", keywords: "rag demo chunks threshold evaluation" },
+      { title: "Experience", detail: "Career timeline and reported outcomes", href: "experience.html", group: "Profile", keywords: "pepsico pega amazon oracle teradata axa" },
+      { title: "Skills", detail: "Full-stack, cloud, and AI toolkit", href: "skills.html", group: "Profile", keywords: "java spring react typescript aws azure python" },
+      { title: "Résumé library", detail: "AI, visual, and portfolio editions", href: "resume.html", group: "Profile", keywords: "cv download pdf recruiter" },
+      { title: "Engineering artifacts", detail: "API, evaluation, and incident templates", href: "engineering-artifacts.html", group: "Proof", keywords: "openapi checklist retrospective recommendation" },
+      { title: "Project cinema", detail: "Narrated films about engineering work", href: "project-cinema.html", group: "Media", keywords: "youtube video film projects" },
+      { title: "Writing and lyrics", detail: "Novel, music, and creative work", href: "writer-lyricist.html", group: "Creative", keywords: "art of making song novel lyricist" },
+      { title: "Games arcade", detail: "Playable browser games", href: "games.html", group: "Play", keywords: "pac man snake flappy 2048 pong" },
+      { title: "Task manager", detail: "Local Eisenhower matrix", href: "task-manager.html", group: "Tools", keywords: "tasks productivity matrix priority" },
+      { title: "Certifications", detail: "Cloud and AI credentials", href: "certifications.html", group: "Proof", keywords: "azure pega oracle credential" },
+      { title: "Contact", detail: "Email and professional profiles", href: "contact.html", group: "Connect", keywords: "email linkedin github reach out" }
+    ];
+
+    const dialog = document.createElement("dialog");
+    dialog.className = "command-palette";
+    dialog.dataset.commandPalette = "";
+    dialog.setAttribute("aria-label", "Search the portfolio");
+    dialog.innerHTML = '<div class="command-palette__shell"><div class="command-palette__search"><span aria-hidden="true">⌕</span><label><span class="sr-only">Search pages and projects</span><input type="search" placeholder="Search pages, projects, skills…" autocomplete="off" data-command-input></label><button type="button" data-command-close aria-label="Close search">Esc</button></div><div class="command-palette__results" role="listbox" aria-label="Search results" data-command-results></div><div class="command-palette__footer"><span>↑↓ navigate</span><span>Enter open</span><span>Esc close</span></div></div>';
+    document.body.appendChild(dialog);
+
+    const input = dialog.querySelector("[data-command-input]");
+    const results = dialog.querySelector("[data-command-results]");
+    const closeButton = dialog.querySelector("[data-command-close]");
+    let activeIndex = 0;
+    let renderedLinks = [];
+    let paletteTrigger = null;
+
+    function normalise(value) {
+      return String(value || "").toLowerCase().replace(/[^a-z0-9+#.]+/g, " ").trim();
+    }
+
+    function render() {
+      const query = normalise(input.value);
+      const matches = pages.filter(function (page) {
+        const haystack = normalise(page.title + " " + page.detail + " " + page.group + " " + page.keywords);
+        return !query || query.split(" ").every(function (term) { return haystack.includes(term); });
+      }).slice(0, 10);
+
+      results.replaceChildren();
+      activeIndex = 0;
+      matches.forEach(function (page, index) {
+        const link = document.createElement("a");
+        link.className = "command-result";
+        link.href = page.href;
+        link.dataset.commandResult = "";
+        link.setAttribute("role", "option");
+        link.innerHTML = '<span><small></small><strong></strong><em></em></span><b aria-hidden="true">↗</b>';
+        link.querySelector("small").textContent = page.group;
+        link.querySelector("strong").textContent = page.title;
+        link.querySelector("em").textContent = page.detail;
+        link.setAttribute("aria-selected", String(index === 0));
+        link.addEventListener("click", function () {
+          trackEvent("command_palette_navigate", { destination: page.href, search_used: query ? "yes" : "no" });
+        });
+        results.appendChild(link);
+      });
+
+      if (!matches.length) {
+        const message = document.createElement("p");
+        message.className = "command-palette__empty";
+        message.textContent = "No exact match. Try AI, Java, résumé, games, writing, or contact.";
+        results.appendChild(message);
+      }
+      renderedLinks = Array.from(results.querySelectorAll("[data-command-result]"));
+    }
+
+    function setActive(nextIndex) {
+      if (!renderedLinks.length) {
+        return;
+      }
+      activeIndex = (nextIndex + renderedLinks.length) % renderedLinks.length;
+      renderedLinks.forEach(function (link, index) {
+        link.setAttribute("aria-selected", String(index === activeIndex));
+      });
+      renderedLinks[activeIndex].scrollIntoView({ block: "nearest" });
+    }
+
+    function openPalette(trigger) {
+      paletteTrigger = trigger || document.activeElement;
+      if (typeof dialog.showModal === "function") {
+        if (!dialog.open) {
+          dialog.showModal();
+        }
+      } else {
+        dialog.setAttribute("open", "");
+      }
+      input.value = "";
+      render();
+      window.setTimeout(function () { input.focus(); }, 0);
+      trackEvent("command_palette_open", { trigger: "button_or_shortcut" });
+    }
+
+    function closePalette() {
+      if (typeof dialog.close === "function" && dialog.open) {
+        dialog.close();
+      } else {
+        dialog.removeAttribute("open");
+      }
+      if (paletteTrigger && typeof paletteTrigger.focus === "function") {
+        paletteTrigger.focus();
+      }
+    }
+
+    document.addEventListener("click", function (event) {
+      const commandButton = event.target.closest("[data-command-open]");
+      if (commandButton) {
+        openPalette(commandButton);
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      const target = event.target;
+      const typing = target && (target.matches("input, textarea, select") || target.isContentEditable);
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        openPalette(document.activeElement);
+      } else if (event.key === "/" && !typing && !dialog.open) {
+        event.preventDefault();
+        openPalette(document.activeElement);
+      }
+    });
+    input.addEventListener("input", render);
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setActive(activeIndex + 1);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setActive(activeIndex - 1);
+      } else if (event.key === "Enter" && renderedLinks[activeIndex]) {
+        event.preventDefault();
+        renderedLinks[activeIndex].click();
+      }
+    });
+    closeButton.addEventListener("click", closePalette);
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) {
+        closePalette();
+      }
+    });
+    dialog.addEventListener("cancel", function () {
+      if (paletteTrigger && typeof paletteTrigger.focus === "function") {
+        window.setTimeout(function () { paletteTrigger.focus(); }, 0);
+      }
+    });
+  }
+
+  function initialisePortfolioAssistant() {
+    if (document.querySelector("[data-portfolio-assistant]")) {
+      return;
+    }
+
+    const knowledge = [
+      { id: "overview", title: "Professional overview", keywords: "overview about profile who experience engineer full stack role", answer: "Devi Prasad Choudhary Ratnala is a product-minded full-stack AI engineer with 10+ years across Java, Spring Boot, React, enterprise systems, cloud workflows, production ownership, and applied AI.", sources: [["Recruiter overview", "recruiter.html"], ["Experience", "experience.html"]] },
+      { id: "ai", title: "Applied AI", keywords: "ai artificial intelligence retail360 analytics agent agents pipeline monitoring rag llm", answer: "The applied AI portfolio covers Retail360 decision support, retrieval-grounded document intelligence, and agent-assisted pipeline reliability. Reported scale and estimated impact are labeled separately.", sources: [["Applied AI case study", "ai-engineering.html"], ["RAG Studio", "rag-studio.html"]] },
+      { id: "rag", title: "RAG and retrieval", keywords: "rag retrieval document documents semantic search hybrid reranking citation grounded evaluation", answer: "RAG Studio demonstrates hybrid retrieval, reciprocal-rank fusion, reranking, grounded citations, abstention, traces, and executable evaluation. The enterprise case study reports an approximately 1,500-document corpus and 300+ monthly questions.", sources: [["RAG Studio", "rag-studio.html"], ["Retrieval lab", "ai-lab.html"]] },
+      { id: "retail", title: "Retail360", keywords: "retail retail360 pepsico stakeholders account analytics turnaround", answer: "Retail360 is presented as AI-assisted analytics supporting approximately 50 sales and operations stakeholders across 5+ retail accounts, with an estimated 25% improvement in analytics turnaround.", sources: [["Applied AI evidence", "ai-engineering.html"], ["Experience", "experience.html"]] },
+      { id: "agents", title: "Agent-assisted reliability", keywords: "agent agents pipeline pipelines incident triage reliability failure monitoring", answer: "The agent-assisted reliability work reports monitoring across 20+ pipelines and approximately 50 monthly failure triages, with a reported 10% reduction in incident response time and human-controlled recovery.", sources: [["Agent architecture", "ai-engineering.html#ai-system-maps"], ["Incident artifact", "artifacts/incident-retrospective-template.md"]] },
+      { id: "amazon", title: "Amazon Impact", keywords: "amazon aws lambda dynamodb react operations leadership incident serverless", answer: "Amazon Impact used AWS Lambda, DynamoDB, and React to create a repeatable weekly operations view for leadership. Ownership included high-severity incident response through root-cause resolution and durable fixes.", sources: [["Amazon case study", "projects.html#amazon-impact"], ["Project film", "project-cinema.html"]] },
+      { id: "enterprise", title: "Enterprise experience", keywords: "oracle teradata axa pega enterprise insurance platform cloud history audit", answer: "The enterprise timeline spans AXA premium calculations, Teradata analytical-function tooling, Oracle cloud-maintenance scheduling, Amazon operations intelligence, Pega platform services, and current PepsiCo product and AI work.", sources: [["Experience timeline", "experience.html"], ["Project archive", "projects.html"]] },
+      { id: "skills", title: "Technical skills", keywords: "skills stack java spring boot react typescript python django aws azure docker cicd api microservices", answer: "Core strengths include Java, Spring Boot, React, TypeScript, REST APIs, microservices, Python, AWS and Azure foundations, Docker, CI/CD, RAG, agents, evaluation, and MCP.", sources: [["Skills map", "skills.html"], ["Certifications", "certifications.html"]] },
+      { id: "resume", title: "Résumés", keywords: "resume résumé cv download pdf recruiter", answer: "The résumé library offers an ATS-friendly AI and cloud edition, a visual one-page profile, and a detailed portfolio edition. Each can be viewed or downloaded.", sources: [["Résumé library", "resume.html"], ["Recruiter overview", "recruiter.html"]] },
+      { id: "projects", title: "Projects", keywords: "projects work portfolio live products vercel web3 research games", answer: "The project archive includes live AI and Web3 products, enterprise case studies, public code, narrated project films, engineering artifacts, biometric research, and browser games.", sources: [["Filter projects", "projects.html#project-index"], ["Live products", "live-projects.html"]] },
+      { id: "creative", title: "Creative work", keywords: "writing writer novel art making music song lyricist youtube creative", answer: "The creative portfolio includes the novel The Art of Making, original music, lyrics, and video work alongside the engineering portfolio.", sources: [["Writing and lyrics", "writer-lyricist.html"], ["Watch and listen", "watch-listen.html"]] },
+      { id: "contact", title: "Contact and availability", keywords: "contact email linkedin available availability hire opportunity collaboration speaking mentoring", answer: "Devi is currently building at PepsiCo and is open to thoughtful engineering conversations, collaboration, speaking, mentoring, and selected opportunities. The direct email is rdprassy@gmail.com.", sources: [["Contact", "contact.html"], ["LinkedIn", "https://www.linkedin.com/in/rdprassy"]] }
+    ];
+
+    const launcher = document.createElement("button");
+    launcher.className = "portfolio-assistant__launcher";
+    launcher.type = "button";
+    launcher.dataset.assistantOpen = "";
+    launcher.setAttribute("aria-expanded", "false");
+    launcher.setAttribute("aria-controls", "portfolio-assistant");
+    launcher.innerHTML = '<span aria-hidden="true">RD</span><strong>Ask portfolio</strong>';
+
+    const panel = document.createElement("section");
+    panel.className = "portfolio-assistant";
+    panel.id = "portfolio-assistant";
+    panel.dataset.portfolioAssistant = "";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Portfolio assistant");
+    panel.hidden = true;
+    panel.innerHTML = '<header><div><span>Evidence-grounded guide</span><h2>Ask about the portfolio</h2></div><button type="button" data-assistant-close aria-label="Close portfolio assistant">×</button></header><div class="portfolio-assistant__body"><p class="portfolio-assistant__intro">Answers come only from published portfolio content—no invented claims or live model guesswork.</p><div class="portfolio-assistant__suggestions"><button type="button" data-assistant-prompt="What AI work is showcased?">AI work</button><button type="button" data-assistant-prompt="What is the strongest project?">Top projects</button><button type="button" data-assistant-prompt="Where can I download a resume?">Résumé</button></div><div class="portfolio-assistant__answer" data-assistant-answer aria-live="polite"><p>Ask about experience, AI systems, projects, skills, résumés, writing, or contact details.</p></div></div><form class="portfolio-assistant__form" data-assistant-form><label><span class="sr-only">Ask a portfolio question</span><input type="text" maxlength="160" placeholder="Ask about RAG, Java, projects…" data-assistant-input></label><button type="submit">Ask</button></form>';
+
+    document.body.appendChild(launcher);
+    document.body.appendChild(panel);
+
+    const closeButton = panel.querySelector("[data-assistant-close]");
+    const form = panel.querySelector("[data-assistant-form]");
+    const input = panel.querySelector("[data-assistant-input]");
+    const answer = panel.querySelector("[data-assistant-answer]");
+
+    function normalise(value) {
+      return String(value || "").toLowerCase().replace(/[^a-z0-9+#.]+/g, " ").trim();
+    }
+
+    function findAnswer(question) {
+      const query = normalise(question);
+      const tokens = query.split(" ").filter(function (token) { return token.length > 2; });
+      let best = knowledge[0];
+      let bestScore = 0;
+
+      knowledge.forEach(function (entry) {
+        const haystack = normalise(entry.title + " " + entry.keywords);
+        let score = 0;
+        tokens.forEach(function (token) {
+          if (haystack.split(" ").includes(token)) {
+            score += 3;
+          } else if (haystack.includes(token)) {
+            score += 1;
+          }
+        });
+        if (score > bestScore) {
+          bestScore = score;
+          best = entry;
+        }
+      });
+
+      return { entry: best, matched: bestScore > 0 };
+    }
+
+    function renderAnswer(question) {
+      const result = findAnswer(question);
+      answer.replaceChildren();
+      const heading = document.createElement("strong");
+      heading.textContent = result.matched ? result.entry.title : "Best starting point";
+      const copy = document.createElement("p");
+      copy.textContent = result.matched
+        ? result.entry.answer
+        : "I could not match that precisely, so here is the professional overview. " + result.entry.answer;
+      const sources = document.createElement("div");
+      sources.className = "portfolio-assistant__sources";
+      result.entry.sources.forEach(function (source) {
+        const link = document.createElement("a");
+        link.href = source[1];
+        link.textContent = source[0] + " ↗";
+        if (/^https?:/i.test(source[1])) {
+          link.target = "_blank";
+          link.rel = "noopener";
+        }
+        link.addEventListener("click", function () {
+          trackEvent("assistant_source_open", { topic: result.entry.id, destination: source[1] });
+        });
+        sources.appendChild(link);
+      });
+      answer.appendChild(heading);
+      answer.appendChild(copy);
+      answer.appendChild(sources);
+      trackEvent("assistant_query", { topic: result.entry.id, matched: result.matched ? "yes" : "fallback" });
+    }
+
+    function openAssistant() {
+      panel.hidden = false;
+      launcher.setAttribute("aria-expanded", "true");
+      input.focus();
+      trackEvent("assistant_open", { page: currentPage });
+    }
+
+    function closeAssistant() {
+      panel.hidden = true;
+      launcher.setAttribute("aria-expanded", "false");
+      launcher.focus();
+    }
+
+    launcher.addEventListener("click", function () {
+      if (panel.hidden) {
+        openAssistant();
+      } else {
+        closeAssistant();
+      }
+    });
+    closeButton.addEventListener("click", closeAssistant);
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const question = input.value.trim();
+      if (question) {
+        renderAnswer(question);
+      }
+    });
+    panel.querySelectorAll("[data-assistant-prompt]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        input.value = button.dataset.assistantPrompt;
+        renderAnswer(input.value);
+      });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !panel.hidden) {
+        closeAssistant();
+      }
+    });
+  }
+
+  function initialiseEngagementTracking() {
+    const reached = new Set();
+    let ticking = false;
+
+    function checkDepth() {
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const depth = Math.min(100, Math.round((window.scrollY / scrollable) * 100));
+      [25, 50, 75, 90].forEach(function (threshold) {
+        if (depth >= threshold && !reached.has(threshold)) {
+          reached.add(threshold);
+          trackEvent("scroll_depth", { percent: threshold });
+        }
+      });
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(checkDepth);
+      }
+    }, { passive: true });
+
+    window.setTimeout(function () {
+      if (!document.hidden) {
+        trackEvent("engaged_visit", { seconds: 30 });
+      }
+    }, 30000);
+
+    if ("IntersectionObserver" in window) {
+      const seenSections = new Set();
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.target.id && !seenSections.has(entry.target.id)) {
+            seenSections.add(entry.target.id);
+            trackEvent("section_view", { section: entry.target.id.slice(0, 80) });
+          }
+        });
+      }, { threshold: 0.45 });
+      document.querySelectorAll("main > section[id]").forEach(function (section) {
+        observer.observe(section);
+      });
+    }
+  }
+
   function trackEvent(name, properties) {
     const detail = Object.assign({
       event: name,
@@ -401,11 +896,30 @@
     if (/github\.com\/rdprassy/i.test(href)) {
       return "github_open";
     }
+    if (/linkedin\.com\/in\/rdprassy/i.test(href)) {
+      return "linkedin_open";
+    }
+    if (/youtu(?:\.be|be\.com)/i.test(href)) {
+      return "youtube_open";
+    }
+    if (/\.vercel\.app(?:\/|$)/i.test(href)) {
+      return "live_product_open";
+    }
+    if (/drive\.google\.com/i.test(href)) {
+      return "creative_work_open";
+    }
+    if (/^upi:/i.test(href)) {
+      return "support_upi_open";
+    }
     return "";
   }
 
   window.rdprassyTrack = trackEvent;
   optimiseImageLoading();
+  initialiseProjectFilters();
+  initialiseCommandPalette();
+  initialisePortfolioAssistant();
+  initialiseEngagementTracking();
   trackEvent("page_view", { title: document.title });
 
   window.addEventListener("load", function () {

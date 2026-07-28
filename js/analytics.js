@@ -3,11 +3,14 @@
 
   const loaderScript = document.currentScript;
   const configUrl = loaderScript && loaderScript.src
-    ? new URL("analytics-config.js", loaderScript.src).href
-    : "js/analytics-config.js";
+    ? new URL("analytics-config.js", loaderScript.src)
+    : new URL("js/analytics-config.js", document.baseURI);
+  if (loaderScript && loaderScript.src) {
+    configUrl.search = new URL(loaderScript.src).search;
+  }
   const configScript = document.createElement("script");
 
-  configScript.src = configUrl;
+  configScript.src = configUrl.href;
   configScript.async = false;
   configScript.addEventListener("load", initialiseAnalytics);
   configScript.addEventListener("error", initialiseAnalytics);
