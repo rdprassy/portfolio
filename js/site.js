@@ -244,14 +244,14 @@
         nav.insertBefore(aiLink, notesLink);
       }
 
-      if (notesLink && !nav.querySelector('a[href="project-cinema.html"]')) {
-        const cinemaLink = document.createElement("a");
-        cinemaLink.href = "project-cinema.html";
-        cinemaLink.textContent = "Films";
-        if (currentPage === "project-cinema.html") {
-          cinemaLink.setAttribute("aria-current", "page");
+      if (notesLink && !nav.querySelector('a[href="watch-listen.html"]')) {
+        const mediaLink = document.createElement("a");
+        mediaLink.href = "watch-listen.html";
+        mediaLink.textContent = "Media";
+        if (["watch-listen.html", "project-cinema.html"].includes(currentPage)) {
+          mediaLink.setAttribute("aria-current", "page");
         }
-        nav.insertBefore(cinemaLink, notesLink);
+        nav.insertBefore(mediaLink, notesLink);
       }
 
       if (notesLink && !nav.querySelector('a[href="games.html"]')) {
@@ -265,7 +265,7 @@
         ].includes(currentPage)) {
           gamesLink.setAttribute("aria-current", "page");
         }
-        nav.insertBefore(gamesLink, nav.querySelector('a[href="project-cinema.html"]') || notesLink);
+        nav.insertBefore(gamesLink, nav.querySelector('a[href="watch-listen.html"]') || notesLink);
       }
 
       if (notesLink && !nav.querySelector('a[href="task-manager.html"]')) {
