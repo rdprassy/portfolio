@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore RAG Studio by rdprassy: an evaluation-first retrieval-augmented generation system with hybrid retrieval, reranking, grounded citations, abstention, traces, and executable metrics.">
+  <meta property="og:title" content="RAG Studio | Evaluation-first AI by rdprassy">
+  <meta property="og:description" content="A RAG system that shows its work: evidence, scores, latency, citations, abstention, and executable evaluation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rdprassy.com/rag-studio.html">
+  <meta property="og:image" content="https://www.rdprassy.com/images/vercel/rag-studio.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.rdprassy.com/rag-studio.html">
+  <title>RAG Studio | Evaluation-first AI by rdprassy</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/rag-studio.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "RAG Studio",
+    "description": "An evaluation-first retrieval-augmented generation system with hybrid retrieval, reranking, grounded citations, observability, metrics, and a live interface.",
+    "codeRepository": "https://github.com/rdprassy/rag-studio",
+    "url": "https://rag-studio-eta.vercel.app",
+    "programmingLanguage": ["TypeScript", "React"],
+    "author": {
+      "@type": "Person",
+      "name": "Devi Prasad Choudhary Ratnala",
+      "url": "https://www.rdprassy.com/"
+    }
+  }
+  </script>
+</head>
+<body class="rag-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="rdprassy home"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="rag-hero">
+      <div class="wrap">
+        <div class="breadcrumb rag-breadcrumb"><a href="index.html">Home</a> / <a href="projects.html">Projects</a> / RAG Studio</div>
+        <div class="rag-hero__grid">
+          <div class="rag-hero__copy">
+            <span class="rag-eyebrow"><i aria-hidden="true"></i> Open source · Evaluation-first · Live</span>
+            <h1>A RAG system that <em>shows its work.</em></h1>
+            <p>RAG Studio makes retrieval-augmented generation inspectable. It exposes the evidence, scores, latency, citations, confidence gate, and evaluation behind an answer—because a fluent answer is not the same as a trustworthy one.</p>
+            <div class="button-row">
+              <a class="button rag-button--lime" href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener" data-track="rag_live_open">Open the live workbench ↗</a>
+              <a class="button rag-button--ghost" href="#walkthrough">Watch 1:27 walkthrough</a>
+              <a class="button rag-button--ghost" href="https://github.com/rdprassy/rag-studio" target="_blank" rel="noopener" data-track="rag_source_open">Inspect source ↗</a>
+            </div>
+          </div>
+          <a class="rag-hero__visual" href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener" aria-label="Open RAG Studio live">
+            <img src="images/vercel/rag-studio.png" width="1200" height="630" alt="RAG Studio, a RAG system that shows its work through hybrid retrieval, reranking, citations, and evaluation">
+            <span>LIVE WORKBENCH <b>↗</b></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-proof" aria-label="Latest executable evaluation results">
+      <div class="wrap rag-proof__grid">
+        <div><strong>12</strong><span>golden-set queries</span></div>
+        <div><strong>0.833</strong><span>mean reciprocal rank</span></div>
+        <div><strong>0.958</strong><span>context recall @ 4</span></div>
+        <div><strong>100%</strong><span>citation coverage</span></div>
+        <div><strong>100%</strong><span>abstention accuracy</span></div>
+      </div>
+    </section>
+
+    <section class="rag-section rag-section--light" id="architecture">
+      <div class="wrap">
+        <div class="rag-heading">
+          <span>01 / SYSTEM DESIGN</span>
+          <h2>Retrieval is a pipeline,<br>not a prompt trick.</h2>
+          <p>The system combines complementary retrieval signals, ranks evidence deliberately, then makes “do not answer” a valid outcome when grounding is weak.</p>
+        </div>
+        <div class="rag-flow" aria-label="RAG Studio system flow">
+          <div class="rag-flow__node"><small>INGEST</small><strong>Sources</strong><span>PDF · Markdown · Notion design</span></div>
+          <div class="rag-flow__arrow" aria-hidden="true">→</div>
+          <div class="rag-flow__node"><small>PREPARE</small><strong>Parse + chunk</strong><span>420-token target · 64 overlap</span></div>
+          <div class="rag-flow__arrow" aria-hidden="true">→</div>
+          <div class="rag-flow__split">
+            <span>Lexical</span><b>+</b><span>Semantic</span>
+          </div>
+          <div class="rag-flow__arrow" aria-hidden="true">→</div>
+          <div class="rag-flow__node rag-flow__node--accent"><small>RETRIEVE</small><strong>RRF + rerank</strong><span>Relevance · coverage · affinity</span></div>
+          <div class="rag-flow__arrow" aria-hidden="true">→</div>
+          <div class="rag-flow__node"><small>DECIDE</small><strong>Confidence gate</strong><span>Answer or abstain</span></div>
+        </div>
+        <div class="rag-capability-grid">
+          <article><span>01</span><h3>Hybrid retrieval</h3><p>BM25-style lexical search and semantic concept matching recover different kinds of evidence instead of depending on one signal.</p></article>
+          <article><span>02</span><h3>Reciprocal-rank fusion</h3><p>RRF combines ranked lists without pretending incomparable raw scores share the same scale.</p></article>
+          <article><span>03</span><h3>Evidence-aware reranking</h3><p>Candidates are reordered using relevance, query coverage, title affinity, and freshness before context assembly.</p></article>
+          <article><span>04</span><h3>Grounded citations</h3><p>Claims stay connected to source excerpts, making support visible to the reader and measurable by the system.</p></article>
+          <article><span>05</span><h3>Confidence-gated abstention</h3><p>Weak evidence produces a transparent refusal instead of a confident answer assembled from irrelevant context.</p></article>
+          <article><span>06</span><h3>Full retrieval trace</h3><p>Query rewrite, candidates, component scores, context tokens, and per-stage latency turn debugging into specific action.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-section rag-section--ink" id="walkthrough">
+      <div class="wrap">
+        <div class="rag-heading rag-heading--inverse">
+          <span>02 / WALKTHROUGH</span>
+          <h2>See the evidence path,<br>not just the final sentence.</h2>
+          <p>The complete project walkthrough is hosted with the portfolio. Press play to follow query rewrite, hybrid retrieval, reranking, citations, traces, and evaluation.</p>
+        </div>
+        <div class="rag-video-shell">
+          <div class="rag-video-shell__bar"><span><i aria-hidden="true"></i> RAG/STUDIO · PROJECT WALKTHROUGH</span><strong>01:27</strong></div>
+          <video controls preload="metadata" poster="images/vercel/rag-studio.png" data-rag-video>
+            <source src="videos/rag-studio-demo.mp4" type="video/mp4">
+            Your browser does not support embedded video. <a href="videos/rag-studio-demo.mp4">Download the walkthrough</a>.
+          </video>
+        </div>
+        <div class="rag-video-actions">
+          <p><strong>No autoplay.</strong> Playback begins only when you choose it.</p>
+          <a href="videos/rag-studio-demo.mp4" download data-track="rag_video_download">Download MP4 · 3.8 MB ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-section rag-section--lavender" id="evaluation">
+      <div class="wrap rag-eval-grid">
+        <div class="rag-heading">
+          <span>03 / EVALUATION</span>
+          <h2>The metrics are executable,<br>and the weakness is visible.</h2>
+          <p>The latest checked-in report runs a deterministic 12-query golden set. It includes in-domain retrieval questions and out-of-domain prompts that should abstain.</p>
+          <a class="rag-text-link" href="https://github.com/rdprassy/rag-studio/blob/main/reports/evaluation-latest.json" target="_blank" rel="noopener">Open the raw evaluation report ↗</a>
+        </div>
+        <div class="rag-scorecard">
+          <div class="rag-scorecard__head"><span>deterministic-demo-v1</span><span>2026-07-28</span></div>
+          <dl>
+            <div><dt>Mean reciprocal rank</dt><dd>0.833</dd></div>
+            <div><dt>Context precision @ 4</dt><dd>0.521</dd></div>
+            <div><dt>Context recall @ 4</dt><dd>0.958</dd></div>
+            <div><dt>Abstention accuracy</dt><dd>1.000</dd></div>
+            <div><dt>Citation coverage</dt><dd>1.000</dd></div>
+          </dl>
+          <p><b>Honest read:</b> recall, citation coverage, and abstention are strong in the current set. Precision@4 at 0.521 exposes useful headroom in candidate filtering and reranking rather than hiding it behind a polished demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-section rag-section--light" id="production">
+      <div class="wrap">
+        <div class="rag-heading">
+          <span>04 / ENGINEERING BOUNDARY</span>
+          <h2>Reproducible today.<br>Adapter-ready for production.</h2>
+          <p>The hosted demo deliberately avoids paid model keys. That keeps behavior deterministic, repeatable, and open to inspection while preserving clear seams for production infrastructure.</p>
+        </div>
+        <div class="rag-boundary-grid">
+          <article>
+            <span class="rag-boundary-grid__label">PUBLIC DEMO</span>
+            <h3>Transparent by design</h3>
+            <ul>
+              <li>Deterministic semantic concept matching</li>
+              <li>Public, reproducible corpus and evaluation</li>
+              <li>No paid model key required</li>
+              <li>Visible ranking and latency traces</li>
+              <li>Executable health checks and tests</li>
+            </ul>
+          </article>
+          <article>
+            <span class="rag-boundary-grid__label">PRODUCTION PATH</span>
+            <h3>Replace through interfaces</h3>
+            <ul>
+              <li>Embedding provider and vector database</li>
+              <li>Cross-encoder or hosted reranker</li>
+              <li>Grounded generation model</li>
+              <li>Tenant filters, authorization, and audit</li>
+              <li>OpenTelemetry, Langfuse, or Phoenix traces</li>
+            </ul>
+          </article>
+        </div>
+        <div class="rag-lessons">
+          <article><small>LESSON 01</small><h3>Reranking must earn latency.</h3><p>Measure lift against added delay; architecture should serve retrieval quality, not decoration.</p></article>
+          <article><small>LESSON 02</small><h3>Chunk boundaries are product behavior.</h3><p>Heading preservation and overlap affect whether evidence is understandable after retrieval.</p></article>
+          <article><small>LESSON 03</small><h3>Abstention is a feature.</h3><p>A bounded “I do not have enough evidence” is safer and more useful than unsupported confidence.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-section rag-section--ink" id="inspect">
+      <div class="wrap">
+        <div class="rag-heading rag-heading--inverse">
+          <span>05 / INSPECT THE WORK</span>
+          <h2>Open every layer.</h2>
+          <p>The implementation, architecture, API contract, evaluation design, executable report, live workbench, and walkthrough are public.</p>
+        </div>
+        <div class="rag-link-grid">
+          <a href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener"><span>LIVE</span><strong>RAG Studio workbench</strong><i>↗</i></a>
+          <a href="https://github.com/rdprassy/rag-studio" target="_blank" rel="noopener"><span>CODE</span><strong>Source repository</strong><i>↗</i></a>
+          <a href="https://github.com/rdprassy/rag-studio/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener"><span>DOC</span><strong>Architecture</strong><i>↗</i></a>
+          <a href="https://github.com/rdprassy/rag-studio/blob/main/docs/EVALUATION.md" target="_blank" rel="noopener"><span>DOC</span><strong>Evaluation design</strong><i>↗</i></a>
+          <a href="https://github.com/rdprassy/rag-studio/blob/main/docs/API.md" target="_blank" rel="noopener"><span>DOC</span><strong>API reference</strong><i>↗</i></a>
+          <a href="#walkthrough"><span>VIDEO</span><strong>Project walkthrough</strong><i>↓</i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-cta">
+      <div class="wrap">
+        <span>BUILT TO BE QUESTIONED</span>
+        <h2>Try a query. Inspect the evidence. Challenge the result.</h2>
+        <div class="button-row">
+          <a class="button rag-button--lime" href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener">Launch RAG Studio ↗</a>
+          <a class="button rag-button--ghost" href="contact.html">Discuss the engineering</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Applied AI built around evidence, explicit quality gates, and inspectable engineering.</p></div>
+        <div class="footer-col"><strong>RAG Studio</strong><a href="#architecture">Architecture</a><a href="#walkthrough">Walkthrough</a><a href="#evaluation">Evaluation</a></div>
+        <div class="footer-col"><strong>Explore</strong><a href="ai-engineering.html">Applied AI</a><a href="ai-lab.html">Retrieval Lab</a><a href="projects.html">All projects</a></div>
+        <div class="footer-col"><strong>Open</strong><a href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener">Live workbench ↗</a><a href="https://github.com/rdprassy/rag-studio" target="_blank" rel="noopener">GitHub ↗</a><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Evaluation-first RAG · Open source</span></div>
+    </div>
+  </footer>
+  <script src="js/site.js"></script>
+  <script src="js/rag-studio.js"></script>
+</body>
+</html>

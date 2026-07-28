@@ -2,7 +2,7 @@
 
 Source for [www.rdprassy.com](https://www.rdprassy.com), the portfolio of Devi Prasad Choudhary Ratnala.
 
-The site includes live products, engineering case studies, applied AI work, interactive artifacts, résumé editions, writing, a ten-film [Project Cinema](https://www.rdprassy.com/project-cinema.html), a privacy-aware [Watch & Listen media lounge](https://www.rdprassy.com/watch-listen.html), an eleven-game [RD Arcade](https://www.rdprassy.com/games.html), and a device-local [Eisenhower Task Matrix](https://www.rdprassy.com/task-manager.html).
+The site includes live products, engineering case studies, an open [RAG Studio](https://www.rdprassy.com/rag-studio.html) showcase with executable evaluation and a walkthrough, applied AI work, interactive artifacts, résumé editions, writing, a ten-film [Project Cinema](https://www.rdprassy.com/project-cinema.html), a privacy-aware [Watch & Listen media lounge](https://www.rdprassy.com/watch-listen.html), an eleven-game [RD Arcade](https://www.rdprassy.com/games.html), and a device-local [Eisenhower Task Matrix](https://www.rdprassy.com/task-manager.html).
 
 ## Local build
 

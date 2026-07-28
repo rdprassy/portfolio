@@ -4,7 +4,7 @@ import { extname, join } from "node:path";
 const root = process.cwd();
 const dist = join(root, "dist");
 const client = join(dist, "client");
-const publicDirectories = ["artifacts", "downloads", "images", "img", "js", "stylesheets"];
+const publicDirectories = ["artifacts", "downloads", "images", "img", "js", "stylesheets", "videos"];
 const publicExtensions = new Set([".html", ".ico", ".txt", ".xml"]);
 
 await rm(dist, { recursive: true, force: true });

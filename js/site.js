@@ -238,7 +238,7 @@
         const aiLink = document.createElement("a");
         aiLink.href = "ai-engineering.html";
         aiLink.textContent = "AI";
-        if (["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html"].includes(currentPage)) {
+        if (["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html", "rag-studio.html"].includes(currentPage)) {
           aiLink.setAttribute("aria-current", "page");
         }
         nav.insertBefore(aiLink, notesLink);

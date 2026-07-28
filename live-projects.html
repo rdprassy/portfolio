@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore rdprassy’s live products across AI delivery intelligence, Web3, and personal productivity, with production snapshots and technical decisions.">
+  <meta name="description" content="Explore rdprassy’s live products across evaluation-first RAG, AI delivery intelligence, Web3, and personal productivity, with production snapshots and technical decisions.">
   <meta property="og:title" content="Live Products | rdprassy">
-  <meta property="og:description" content="Four public products spanning AI delivery intelligence, Web3, and a local-first task management system.">
+  <meta property="og:description" content="Five public products spanning evaluation-first RAG, AI delivery intelligence, Web3, and a local-first task management system.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.rdprassy.com/live-projects.html">
   <meta property="og:image" content="https://www.rdprassy.com/images/vercel/aligniq-dashboard.jpg">
@@ -26,6 +26,17 @@
         "position": 1,
         "item": {
           "@type": "SoftwareApplication",
+          "name": "RAG Studio",
+          "applicationCategory": "DeveloperApplication",
+          "url": "https://rag-studio-eta.vercel.app",
+          "codeRepository": "https://github.com/rdprassy/rag-studio"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
           "name": "AlignIQ",
           "applicationCategory": "BusinessApplication",
           "url": "https://aligniq.rdprassy.com",
@@ -34,7 +45,7 @@
       },
       {
         "@type": "ListItem",
-        "position": 2,
+        "position": 3,
         "item": {
           "@type": "WebApplication",
           "name": "NFT Terminal",
@@ -45,7 +56,7 @@
       },
       {
         "@type": "ListItem",
-        "position": 3,
+        "position": 4,
         "item": {
           "@type": "WebApplication",
           "name": "Monad Wallet Checker",
@@ -56,7 +67,7 @@
       },
       {
         "@type": "ListItem",
-        "position": 4,
+        "position": 5,
         "item": {
           "@type": "WebApplication",
           "name": "Eisenhower Task Matrix",
@@ -92,22 +103,56 @@
         <div>
           <div class="breadcrumb"><a href="index.html">Home</a> / <a href="projects.html">Projects</a> / Live Products</div>
           <span class="kicker">Deployed on Vercel</span>
-          <h1 class="page-title">Four live products. Four different product muscles.</h1>
+          <h1 class="page-title">Five live products. Five different product muscles.</h1>
         </div>
-        <p class="page-lead">From AI-assisted delivery alignment and Web3 utilities to a local-first productivity system—each project is live, inspectable, and built around a clear user decision.</p>
+        <p class="page-lead">From evaluation-first retrieval and AI-assisted delivery alignment to Web3 utilities and a local-first productivity system—each project is live, inspectable, and built around a clear user decision.</p>
       </div>
     </section>
 
     <section class="proof-strip" aria-label="Live product highlights">
       <div class="wrap proof-grid">
-        <div class="proof"><strong>4 live</strong><span>public web products</span></div>
-        <div class="proof"><strong>4 domains</strong><span>distinct product problems</span></div>
+        <div class="proof"><strong>5 live</strong><span>public web products</span></div>
+        <div class="proof"><strong>5 domains</strong><span>distinct product problems</span></div>
         <div class="proof"><strong>2 Web3</strong><span>products built for Monad</span></div>
-        <div class="proof"><strong>1 local-first</strong><span>productivity system</span></div>
+        <div class="proof"><strong>1 evaluated RAG</strong><span>with public quality metrics</span></div>
       </div>
     </section>
 
-    <section class="section section--white" id="aligniq">
+    <section class="section section--white" id="rag-studio">
+      <div class="wrap live-product">
+        <a class="live-product__media" href="rag-studio.html" aria-label="Open the RAG Studio engineering case study">
+          <img src="images/vercel/rag-studio.png" width="1200" height="630" alt="RAG Studio, a RAG system that shows its work through hybrid retrieval, reranking, citations, and evaluation">
+          <span class="live-product__open">Inspect the AI system ↗</span>
+        </a>
+        <div class="live-product__body">
+          <div class="live-product__status"><span aria-hidden="true"></span> Live · Open source · Evaluation-first</div>
+          <span class="kicker">01 · Retrieval-augmented generation</span>
+          <h2>RAG Studio</h2>
+          <p class="live-product__lead">An inspectable RAG workbench that exposes the evidence, scores, latency, citations, confidence gate, and evaluation behind every answer.</p>
+          <div class="live-product__facts" aria-label="RAG Studio latest executable evaluation facts">
+            <div><strong>0.833</strong><span>mean reciprocal rank</span></div>
+            <div><strong>0.958</strong><span>context recall @ 4</span></div>
+            <div><strong>100%</strong><span>citation coverage</span></div>
+          </div>
+          <ul class="live-product__features">
+            <li>Hybrid lexical and semantic retrieval fused with reciprocal-rank fusion.</li>
+            <li>Evidence-aware reranking, claim-level citations, and confidence-gated abstention.</li>
+            <li>Executable golden-set evaluation plus rewrite, score, token, candidate, and latency traces.</li>
+          </ul>
+          <div class="tag-list">
+            <span class="tag">TypeScript</span><span class="tag">Hybrid retrieval</span><span class="tag">RRF</span><span class="tag">Reranking</span><span class="tag">Evaluation</span>
+          </div>
+          <div class="button-row">
+            <a class="button button--primary" href="https://rag-studio-eta.vercel.app" target="_blank" rel="noopener" data-track="live_project_open" data-project="rag-studio">Open live workbench ↗</a>
+            <a class="button" href="rag-studio.html">Read the case study</a>
+            <a class="button" href="rag-studio.html#walkthrough">Watch 1:27 video</a>
+            <a class="button" href="https://github.com/rdprassy/rag-studio" target="_blank" rel="noopener">Inspect source ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--green" id="aligniq">
       <div class="wrap live-product">
         <a class="live-product__media" href="https://aligniq.rdprassy.com" target="_blank" rel="noopener" aria-label="Open the live AlignIQ application">
           <img src="images/vercel/aligniq-dashboard.jpg" width="1280" height="720" alt="AlignIQ dashboard showing an 84 percent alignment score and four delivery-alignment dimensions">
@@ -115,7 +160,7 @@
         </a>
         <div class="live-product__body">
           <div class="live-product__status"><span aria-hidden="true"></span> Live production deployment</div>
-          <span class="kicker">01 · AI delivery intelligence</span>
+          <span class="kicker">02 · AI delivery intelligence</span>
           <h2>AlignIQ</h2>
           <p class="live-product__lead">A requirements-alignment workspace designed to expose drift between business requirements, product requirements, delivery features, acceptance criteria, and test coverage.</p>
           <div class="live-product__facts" aria-label="AlignIQ sample dashboard facts">
@@ -147,7 +192,7 @@
         </a>
         <div class="live-product__body">
           <div class="live-product__status"><span aria-hidden="true"></span> Live on Monad Testnet</div>
-          <span class="kicker">02 · Creator infrastructure</span>
+          <span class="kicker">03 · Creator infrastructure</span>
           <h2>NFT Terminal</h2>
           <p class="live-product__lead">A no-code ERC-721 launchpad for creators to configure collections, deploy contracts, manage allowlists, inspect holder activity, and generate token-gating integrations.</p>
           <div class="live-product__facts" aria-label="NFT Terminal product facts">
@@ -180,7 +225,7 @@
         </a>
         <div class="live-product__body">
           <div class="live-product__status"><span aria-hidden="true"></span> Live production deployment</div>
-          <span class="kicker">03 · Focused Web3 utility</span>
+          <span class="kicker">04 · Focused Web3 utility</span>
           <h2>Monad Wallet Checker</h2>
           <p class="live-product__lead">A compact wallet utility that connects MetaMask or checks any compatible address, retrieves MON balances, and helps users work around public RPC limits with a custom endpoint.</p>
           <div class="live-product__facts" aria-label="Wallet Checker product facts">
@@ -215,7 +260,7 @@
         </a>
         <div class="live-product__body">
           <div class="live-product__status"><span aria-hidden="true"></span> Live local-first application</div>
-          <span class="kicker">04 · Productivity system</span>
+          <span class="kicker">05 · Productivity system</span>
           <h2>Eisenhower Task Matrix</h2>
           <p class="live-product__lead">A focused task manager that converts urgency and importance into four clear action modes: do, schedule, delegate, or eliminate.</p>
           <div class="live-product__facts" aria-label="Task Matrix product facts">
@@ -249,12 +294,12 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="footer-grid">
-        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Live products across AI delivery intelligence, Web3, and productivity.</p></div>
-        <div class="footer-col"><strong>Products</strong><a href="#aligniq">AlignIQ</a><a href="#nft-terminal">NFT Terminal</a><a href="#wallet-checker">Wallet Checker</a><a href="#task-matrix">Task Matrix</a></div>
+        <div class="footer-intro"><a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a><p>Live products across retrieval AI, delivery intelligence, Web3, and productivity.</p></div>
+        <div class="footer-col"><strong>Products</strong><a href="#rag-studio">RAG Studio</a><a href="#aligniq">AlignIQ</a><a href="#nft-terminal">NFT Terminal</a><a href="#wallet-checker">Wallet Checker</a><a href="#task-matrix">Task Matrix</a></div>
         <div class="footer-col"><strong>Explore</strong><a href="projects.html">Case studies</a><a href="ai-engineering.html">Applied AI</a><a href="https://github.com/rdprassy" target="_blank" rel="noopener">GitHub ↗</a></div>
         <div class="footer-col"><strong>Connect</strong><a href="contact.html">Contact</a><a href="https://www.linkedin.com/in/rdprassy" target="_blank" rel="noopener">LinkedIn ↗</a></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Four live products</span></div>
+      <div class="footer-bottom"><span>© <span data-year></span> Devi Prasad Choudhary Ratnala</span><span>Five live products</span></div>
     </div>
   </footer>
   <script src="js/site.js"></script>
