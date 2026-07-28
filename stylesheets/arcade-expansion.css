@@ -60,6 +60,7 @@
 .arcade-catalog-card--defend { --game-accent: #ff6a65; }
 .arcade-catalog-card--connect { --game-accent: #ffd85d; }
 .arcade-catalog-card--quest { --game-accent: #63d89b; }
+.arcade-catalog-card--pac { --game-accent: #c8ff5d; }
 
 .arcade-catalog-card__icon {
   align-items: center;
@@ -278,6 +279,7 @@
 .game-page--defend { --game-accent: #e85e59; }
 .game-page--connect { --game-accent: #dba400; }
 .game-page--quest { --game-accent: #2aaa72; }
+.game-page--pac { --game-accent: #9bcf32; }
 
 .game-page--expansion .kicker,
 .game-page--expansion .breadcrumb a { color: var(--game-accent); }
@@ -431,6 +433,94 @@
   min-height: 52px;
   touch-action: manipulation;
 }
+
+/* Pac-Grid */
+.pac-game-surface {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(45, 143, 120, .14), transparent 42%),
+    #071713;
+}
+
+.pac-hud {
+  align-items: center;
+  color: #9eb8af;
+  display: flex;
+  font: 800 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  justify-content: space-between;
+  letter-spacing: .1em;
+  margin: 0 auto 12px;
+  max-width: 760px;
+}
+
+.pac-hud strong,
+.pac-hud__status { color: #c8ff5d; }
+
+.pac-canvas-shell {
+  background: #050c0a;
+  border-color: #123b34;
+  margin: 0 auto;
+  max-width: 760px;
+}
+
+.pac-canvas-shell canvas {
+  aspect-ratio: 19 / 21;
+  height: auto;
+  margin: 0 auto;
+  max-height: 78vh;
+  max-width: 100%;
+  width: auto;
+}
+
+.pac-power-meter {
+  background: var(--surface-2);
+  border-radius: 999px;
+  height: 38px;
+  margin: 16px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.pac-power-meter > span {
+  background: linear-gradient(90deg, #8d75ff, #c8ff5d);
+  inset: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .1s linear;
+}
+
+.pac-power-meter > strong {
+  align-items: center;
+  color: var(--ink);
+  display: flex;
+  font-size: 10px;
+  inset: 0;
+  justify-content: center;
+  letter-spacing: .04em;
+  position: absolute;
+}
+
+.pac-touch-controls {
+  display: none;
+  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 12px auto 0;
+  max-width: 420px;
+}
+
+.pac-touch-controls button {
+  background: var(--ink);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 13px;
+  color: var(--bg);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 850;
+  min-height: 52px;
+  touch-action: manipulation;
+}
+
+.pac-touch-controls button:active { background: var(--game-accent); color: #07120f; }
 
 /* Code Sprint */
 .code-terminal {
@@ -705,6 +795,8 @@
   .cloud-tile { border-radius: 8px; }
   .connect-board { border-width: 5px; gap: 4px; padding: 7px; }
   .touch-controls { display: grid; }
+  .pac-touch-controls { display: grid; }
+  .pac-canvas-shell canvas { max-height: none; width: 100%; }
   .arcade-achievement-toast { bottom: 12px; left: 12px; right: 12px; }
 }
 

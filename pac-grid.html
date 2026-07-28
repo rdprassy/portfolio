@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Pac-Grid, an original maze-chase game in the rdprassy Arcade with power cells, sentinels, escalating levels, and local best scores.">
+  <meta name="author" content="Devi Prasad Choudhary Ratnala">
+  <meta property="og:title" content="Pac-Grid | rdprassy Arcade">
+  <meta property="og:description" content="Clear the maze, energize the grid, outsmart three sentinels, and chase a new local best.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.rdprassy.com/pac-grid.html">
+  <meta property="og:image" content="https://www.rdprassy.com/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.rdprassy.com/pac-grid.html">
+  <title>Pac-Grid | rdprassy Arcade</title>
+  <link rel="icon" href="favicon.ico?v=rd2">
+  <link rel="stylesheet" href="stylesheets/portfolio.css">
+  <link rel="stylesheet" href="stylesheets/games.css">
+  <link rel="stylesheet" href="stylesheets/arcade-expansion.css">
+</head>
+<body class="game-page game-page--expansion game-page--pac">
+  <a class="skip-link" href="#main">Skip to game</a>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="index.html"><span class="wordmark__mark">RD</span> rdprassy</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-button>Menu</button>
+      <nav class="site-nav" id="primary-nav" aria-label="Primary navigation" data-site-nav><a href="about.html">About</a><a href="experience.html">Experience</a><a href="projects.html">Work</a><a href="skills.html">Skills</a><a href="notes.html">Notes</a><a href="index_rdp.html">Legacy Portfolio</a><a class="nav-cta" href="contact.html">Let’s talk</a></nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="game-shell-section">
+      <div class="wrap">
+        <div class="game-titlebar">
+          <div>
+            <div class="breadcrumb"><a href="games.html">Arcade</a> / Pac-Grid</div>
+            <span class="kicker">Game 11 · Maze chase</span>
+            <h1>Pac-Grid</h1>
+            <p>Clear every signal dot, activate power cells, and outsmart the roaming sentinels.</p>
+          </div>
+        </div>
+
+        <div class="expansion-game expansion-game--wide">
+          <section class="game-surface game-surface--dark pac-game-surface">
+            <div class="pac-hud" aria-hidden="true">
+              <span>GRID <strong data-pac-level-top>01</strong></span>
+              <span class="pac-hud__status" data-pac-hud-status>STANDBY</span>
+              <span>DOTS <strong data-pac-dots>0</strong></span>
+            </div>
+            <div class="canvas-shell pac-canvas-shell">
+              <canvas data-pac-canvas width="760" height="840" tabindex="0" aria-label="Pac-Grid maze game. Use arrow keys or W A S D to move. Collect every dot and avoid the sentinels."></canvas>
+              <div class="game-overlay" data-pac-overlay>
+                <span class="kicker">RD MAZE SYSTEM</span>
+                <h2 data-pac-overlay-title>Ready to energize the grid?</h2>
+                <p data-pac-overlay-copy>Move with arrows or W/A/S/D. Power cells let you capture sentinels for a short time.</p>
+                <button class="button button--primary" type="button" data-pac-overlay-button>Start run</button>
+              </div>
+            </div>
+            <div class="pac-touch-controls" aria-label="Touch controls">
+              <span aria-hidden="true"></span><button type="button" data-pac-direction="up" aria-label="Move up">↑</button><button type="button" data-pac-pause aria-label="Pause game">Ⅱ</button>
+              <button type="button" data-pac-direction="left" aria-label="Move left">←</button><button type="button" data-pac-direction="down" aria-label="Move down">↓</button><button type="button" data-pac-direction="right" aria-label="Move right">→</button>
+            </div>
+          </section>
+
+          <aside class="game-side-panel">
+            <div class="game-console__topline"><span>GRID CONTROL</span><button class="sound-toggle" type="button" data-pac-sound aria-pressed="true">Sound on</button></div>
+            <div class="game-metrics">
+              <div class="game-metric"><span>Score</span><strong data-pac-score>0</strong></div>
+              <div class="game-metric"><span>Best</span><strong data-pac-best>0</strong></div>
+              <div class="game-metric"><span>Lives</span><strong data-pac-lives>3</strong></div>
+              <div class="game-metric"><span>Level</span><strong data-pac-level>1</strong></div>
+            </div>
+            <div class="game-status-box" data-pac-status aria-live="polite"><strong>Grid offline</strong>Start a run when you are ready.</div>
+            <div class="pac-power-meter" aria-label="Power mode status"><span data-pac-power-bar></span><strong data-pac-power-label>Power cell inactive</strong></div>
+            <button class="button button--primary game-reset" type="button" data-pac-start>Start run</button>
+            <button class="button game-reset" type="button" data-pac-restart>Restart from level 1</button>
+            <div class="game-instructions">
+              <h3>How to play</h3>
+              <ul><li>Collect every small signal dot to clear a level.</li><li>Large power cells make sentinels vulnerable.</li><li>Capture consecutive sentinels for score multipliers.</li><li>Press P or the pause control to pause.</li></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="game-footer"><div class="wrap"><a href="portfolio-quest.html">← Portfolio Quest</a><span>Keyboard · Touch · Local best</span><a href="games.html">Arcade home →</a></div></footer>
+  <script src="js/site.js"></script>
+  <script src="js/arcade-core.js"></script>
+  <script src="js/pac-grid.js"></script>
+</body>
+</html>

@@ -261,7 +261,7 @@
         if ([
           "games.html", "snake-ladders.html", "flappy-flight.html", "code-sprint.html",
           "algorithm-arena.html", "memory-stack.html", "cloud-2048.html", "pong-ai.html",
-          "defend-api.html", "connect-four.html", "portfolio-quest.html"
+          "defend-api.html", "connect-four.html", "portfolio-quest.html", "pac-grid.html"
         ].includes(currentPage)) {
           gamesLink.setAttribute("aria-current", "page");
         }

@@ -12,14 +12,15 @@
     "pong-ai": "Pong vs AI",
     "defend-api": "Defend the API",
     "connect-four": "Connect Four",
-    "portfolio-quest": "Portfolio Quest"
+    "portfolio-quest": "Portfolio Quest",
+    "pac-grid": "Pac-Grid"
   };
   const gamePaths = Object.fromEntries(Object.keys(gameNames).map((slug) => [slug, `${slug}.html`]));
   const achievementRules = [
     { id: "first-boot", title: "First Boot", copy: "Play your first arcade game.", test: (data) => data.totalPlays >= 1 },
     { id: "arcade-tour", title: "Arcade Tour", copy: "Try three different games.", test: (data) => Object.keys(data.games).length >= 3 },
     { id: "high-five", title: "High Five", copy: "Win or complete five runs.", test: (data) => data.totalWins >= 5 },
-    { id: "full-stack-player", title: "Full-Stack Player", copy: "Try all ten arcade games.", test: (data) => Object.keys(data.games).length >= 10 },
+    { id: "full-stack-player", title: "Full-Stack Player", copy: "Try all eleven arcade games.", test: (data) => Object.keys(data.games).length >= 11 },
     { id: "persistent", title: "Persistent", copy: "Launch twenty game sessions.", test: (data) => data.totalPlays >= 20 }
   ];
 
@@ -129,7 +130,7 @@
     const gamesPlayed = Object.keys(data.games).length;
     const unlockedCount = Object.keys(data.achievements).length;
     root.querySelector("[data-arcade-total-plays]").textContent = String(data.totalPlays);
-    root.querySelector("[data-arcade-games-played]").textContent = `${gamesPlayed}/10`;
+    root.querySelector("[data-arcade-games-played]").textContent = `${gamesPlayed}/${Object.keys(gameNames).length}`;
     root.querySelector("[data-arcade-wins]").textContent = String(data.totalWins);
     root.querySelector("[data-arcade-achievements]").textContent = `${unlockedCount}/${achievementRules.length}`;
 
