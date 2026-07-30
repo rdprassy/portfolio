@@ -268,7 +268,16 @@
         { label: "Recruiter", href: "recruiter.html", pages: ["recruiter.html", "resume.html"] },
         { label: "Experience", href: "experience.html", pages: ["experience.html"] },
         { label: "Work", href: "projects.html", pages: ["projects.html", "live-projects.html"] },
-        { label: "AI", href: "ai-engineering.html", pages: ["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html", "rag-studio.html"] }
+        { label: "AI", href: "ai-engineering.html", pages: ["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html", "rag-studio.html"] },
+        {
+          label: "Games",
+          href: "games.html",
+          pages: [
+            "games.html", "snake-ladders.html", "flappy-flight.html", "code-sprint.html",
+            "algorithm-arena.html", "memory-stack.html", "cloud-2048.html", "pong-ai.html",
+            "defend-api.html", "connect-four.html", "portfolio-quest.html", "pac-grid.html"
+          ]
+        }
       ];
       const exploreGroups = [
         {
@@ -289,7 +298,7 @@
         {
           label: "Play & create",
           links: [
-            ["Arcade", "games.html"], ["Task Matrix", "task-manager.html"], ["Project Cinema", "project-cinema.html"],
+            ["Task Matrix", "task-manager.html"], ["Project Cinema", "project-cinema.html"],
             ["Watch & listen", "watch-listen.html"], ["Writing & music", "writer-lyricist.html"], ["Notes", "notes.html"]
           ]
         },
