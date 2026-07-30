@@ -26,6 +26,7 @@
   let soundEnabled = true;
   let audioContext;
   let winningCells = [];
+  let pendingBrowserMove = 0;
 
   function tone(frequency, duration = .08) {
     if (!soundEnabled) return;
@@ -150,7 +151,8 @@
   }
 
   function aiMove() {
-    if (locked || mode !== "ai") return;
+    if (mode !== "ai" || current !== 2) return;
+    locked = false;
     let column = tacticalMove(2);
     if (column < 0) column = tacticalMove(1);
     if (column < 0) {
@@ -174,13 +176,20 @@
       locked = true;
       elements.status.innerHTML = "<strong>Browser thinking</strong>Evaluating wins, blocks, and center control.";
       render();
-      window.setTimeout(aiMove, 520);
+      pendingBrowserMove = window.setTimeout(function () {
+        pendingBrowserMove = 0;
+        aiMove();
+      }, 520);
     } else {
       elements.status.innerHTML = `<strong>${current === 1 ? "Red" : "Yellow"} move</strong>Select a column for the next disc.`;
     }
   }
 
   function newRound(countRound = true) {
+    if (pendingBrowserMove) {
+      window.clearTimeout(pendingBrowserMove);
+      pendingBrowserMove = 0;
+    }
     board = Array(rows * columns).fill(0);
     current = 1;
     locked = false;

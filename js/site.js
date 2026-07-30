@@ -264,100 +264,171 @@
 
   function enrichNavigation() {
     document.querySelectorAll("[data-site-nav]").forEach(function (nav) {
-      const aboutLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
-        return link.getAttribute("href") === "about.html";
+      const primaryDestinations = [
+        { label: "Recruiter", href: "recruiter.html", pages: ["recruiter.html", "resume.html"] },
+        { label: "Experience", href: "experience.html", pages: ["experience.html"] },
+        { label: "Work", href: "projects.html", pages: ["projects.html", "live-projects.html"] },
+        { label: "AI", href: "ai-engineering.html", pages: ["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html", "rag-studio.html"] }
+      ];
+      const exploreGroups = [
+        {
+          label: "Profile",
+          links: [
+            ["About", "about.html"], ["Journey", "journey.html"], ["Skills", "skills.html"],
+            ["Achievements", "achievements.html"], ["Certifications", "certifications.html"], ["Now", "now.html"]
+          ]
+        },
+        {
+          label: "Engineering",
+          links: [
+            ["Projects", "projects.html"], ["Live products", "live-projects.html"], ["Applied AI", "ai-engineering.html"],
+            ["RAG Studio", "rag-studio.html"], ["AI Lab", "ai-lab.html"], ["Artifacts", "engineering-artifacts.html"],
+            ["Résumé library", "resume.html"]
+          ]
+        },
+        {
+          label: "Play & create",
+          links: [
+            ["Arcade", "games.html"], ["Task Matrix", "task-manager.html"], ["Project Cinema", "project-cinema.html"],
+            ["Watch & listen", "watch-listen.html"], ["Writing & music", "writer-lyricist.html"], ["Notes", "notes.html"]
+          ]
+        },
+        {
+          label: "More",
+          links: [
+            ["Competitive programming", "competitive-programming.html"], ["Sports", "sports.html"],
+            ["Contact", "contact.html"], ["Privacy", "privacy.html"], ["Legacy portfolio", "index_rdp.html"]
+          ]
+        }
+      ];
+
+      nav.replaceChildren();
+
+      primaryDestinations.forEach(function (destination) {
+        const link = document.createElement("a");
+        link.href = destination.href;
+        link.textContent = destination.label;
+        if (destination.pages.includes(currentPage)) {
+          link.setAttribute("aria-current", "page");
+        }
+        nav.appendChild(link);
       });
-      const notesLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
-        return link.getAttribute("href") === "notes.html";
+
+      const explore = document.createElement("div");
+      const exploreButton = document.createElement("button");
+      const explorePanel = document.createElement("div");
+      const exploreHeading = document.createElement("div");
+      const exploreGrid = document.createElement("div");
+      const footer = document.querySelector("footer");
+      const primaryPages = primaryDestinations.flatMap(function (destination) { return destination.pages; });
+
+      explore.className = "nav-explore";
+      explore.dataset.navExplore = "";
+      exploreButton.className = "nav-explore__toggle";
+      exploreButton.type = "button";
+      exploreButton.dataset.navExploreToggle = "";
+      exploreButton.setAttribute("aria-expanded", "false");
+      exploreButton.setAttribute("aria-controls", "portfolio-explore-menu");
+      exploreButton.innerHTML = '<span>Explore</span><span aria-hidden="true">＋</span>';
+      if (!primaryPages.includes(currentPage) && currentPage !== "contact.html" && currentPage !== "index.html") {
+        exploreButton.classList.add("is-current");
+      }
+
+      explorePanel.className = "nav-explore__panel";
+      explorePanel.id = "portfolio-explore-menu";
+      explorePanel.dataset.navExplorePanel = "";
+      explorePanel.setAttribute("aria-hidden", "true");
+      exploreHeading.className = "nav-explore__heading";
+      exploreHeading.innerHTML = '<div><span>Portfolio map</span><strong>Choose your own route.</strong></div><button type="button" data-nav-explore-close aria-label="Close Explore menu">×</button>';
+      exploreGrid.className = "nav-explore__grid";
+
+      exploreGroups.forEach(function (group) {
+        const column = document.createElement("div");
+        const heading = document.createElement("strong");
+        heading.textContent = group.label;
+        column.className = "nav-explore__group";
+        column.appendChild(heading);
+        group.links.forEach(function (destination) {
+          const link = document.createElement("a");
+          link.href = destination[1];
+          link.textContent = destination[0];
+          if (currentPage === destination[1]) {
+            link.setAttribute("aria-current", "page");
+          }
+          column.appendChild(link);
+        });
+        exploreGrid.appendChild(column);
       });
-      const legacyLink = Array.from(nav.querySelectorAll("a")).find(function (link) {
-        return link.getAttribute("href") === "index_rdp.html";
+
+      const footerButton = document.createElement("button");
+      footerButton.className = "nav-explore__footer";
+      footerButton.type = "button";
+      footerButton.dataset.exploreFooter = "";
+      footerButton.innerHTML = '<span><strong>Looking for every link?</strong><small>Jump to this page’s footer directory.</small></span><span aria-hidden="true">↓</span>';
+      if (!footer) {
+        footerButton.disabled = true;
+      } else {
+        footer.id = footer.id || "site-footer";
+      }
+
+      explorePanel.append(exploreHeading, exploreGrid, footerButton);
+      explore.append(exploreButton, explorePanel);
+      nav.appendChild(explore);
+
+      const searchButton = document.createElement("button");
+      searchButton.className = "nav-search";
+      searchButton.type = "button";
+      searchButton.dataset.commandOpen = "";
+      searchButton.setAttribute("aria-label", "Search the portfolio");
+      searchButton.innerHTML = '<span aria-hidden="true">⌕</span><span>Search</span><kbd>⌘K</kbd>';
+      nav.appendChild(searchButton);
+
+      const themeButton = document.createElement("button");
+      themeButton.className = "theme-button";
+      themeButton.type = "button";
+      themeButton.dataset.themeToggle = "";
+      themeButton.innerHTML = '<span data-theme-icon aria-hidden="true">☾</span><span data-theme-label>Dark</span>';
+      nav.appendChild(themeButton);
+
+      const contactLink = document.createElement("a");
+      contactLink.className = "nav-cta";
+      contactLink.href = "contact.html";
+      contactLink.textContent = "Let’s talk";
+      if (currentPage === "contact.html") {
+        contactLink.setAttribute("aria-current", "page");
+      }
+      nav.appendChild(contactLink);
+
+      function setExploreOpen(open) {
+        explore.classList.toggle("is-open", open);
+        exploreButton.setAttribute("aria-expanded", String(open));
+        exploreButton.querySelector("[aria-hidden]").textContent = open ? "−" : "＋";
+        explorePanel.setAttribute("aria-hidden", String(!open));
+      }
+
+      exploreButton.addEventListener("click", function () {
+        setExploreOpen(!explore.classList.contains("is-open"));
       });
-
-      if (aboutLink && !nav.querySelector('a[href="recruiter.html"]')) {
-        const recruiterLink = document.createElement("a");
-        recruiterLink.href = "recruiter.html";
-        recruiterLink.textContent = "Recruiter";
-        if (currentPage === "recruiter.html") {
-          recruiterLink.setAttribute("aria-current", "page");
+      explorePanel.querySelector("[data-nav-explore-close]").addEventListener("click", function () {
+        setExploreOpen(false);
+        exploreButton.focus();
+      });
+      footerButton.addEventListener("click", function () {
+        if (!footer) return;
+        setExploreOpen(false);
+        footer.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+      });
+      document.addEventListener("click", function (event) {
+        if (!explore.contains(event.target)) {
+          setExploreOpen(false);
         }
-        nav.insertBefore(recruiterLink, aboutLink);
-      }
-
-      if (notesLink && !nav.querySelector('a[href="ai-engineering.html"]')) {
-        const aiLink = document.createElement("a");
-        aiLink.href = "ai-engineering.html";
-        aiLink.textContent = "AI";
-        if (["ai-engineering.html", "ai-lab.html", "engineering-artifacts.html", "rag-studio.html"].includes(currentPage)) {
-          aiLink.setAttribute("aria-current", "page");
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && explore.classList.contains("is-open")) {
+          setExploreOpen(false);
+          exploreButton.focus();
         }
-        nav.insertBefore(aiLink, notesLink);
-      }
-
-      if (notesLink && !nav.querySelector('a[href="watch-listen.html"]')) {
-        const mediaLink = document.createElement("a");
-        mediaLink.href = "watch-listen.html";
-        mediaLink.textContent = "Media";
-        if (["watch-listen.html", "project-cinema.html"].includes(currentPage)) {
-          mediaLink.setAttribute("aria-current", "page");
-        }
-        nav.insertBefore(mediaLink, notesLink);
-      }
-
-      if (notesLink && !nav.querySelector('a[href="games.html"]')) {
-        const gamesLink = document.createElement("a");
-        gamesLink.href = "games.html";
-        gamesLink.textContent = "Play";
-        if ([
-          "games.html", "snake-ladders.html", "flappy-flight.html", "code-sprint.html",
-          "algorithm-arena.html", "memory-stack.html", "cloud-2048.html", "pong-ai.html",
-          "defend-api.html", "connect-four.html", "portfolio-quest.html", "pac-grid.html"
-        ].includes(currentPage)) {
-          gamesLink.setAttribute("aria-current", "page");
-        }
-        nav.insertBefore(gamesLink, nav.querySelector('a[href="watch-listen.html"]') || notesLink);
-      }
-
-      if (notesLink && !nav.querySelector('a[href="task-manager.html"]')) {
-        const tasksLink = document.createElement("a");
-        tasksLink.href = "task-manager.html";
-        tasksLink.textContent = "Tasks";
-        if (currentPage === "task-manager.html") {
-          tasksLink.setAttribute("aria-current", "page");
-        }
-        nav.insertBefore(tasksLink, notesLink);
-      }
-
-      if (legacyLink && !nav.querySelector('a[href="now.html"]')) {
-        const nowLink = document.createElement("a");
-        nowLink.href = "now.html";
-        nowLink.textContent = "Now";
-        if (currentPage === "now.html") {
-          nowLink.setAttribute("aria-current", "page");
-        }
-        nav.insertBefore(nowLink, legacyLink);
-      }
-
-      if (!nav.querySelector("[data-command-open]")) {
-        const searchButton = document.createElement("button");
-        searchButton.className = "nav-search";
-        searchButton.type = "button";
-        searchButton.dataset.commandOpen = "";
-        searchButton.setAttribute("aria-label", "Search the portfolio");
-        searchButton.innerHTML = '<span aria-hidden="true">⌕</span><span>Search</span><kbd>⌘K</kbd>';
-        const contactLink = nav.querySelector(".nav-cta");
-        nav.insertBefore(searchButton, contactLink || null);
-      }
-
-      if (!nav.querySelector("[data-theme-toggle]")) {
-        const themeButton = document.createElement("button");
-        themeButton.className = "theme-button";
-        themeButton.type = "button";
-        themeButton.dataset.themeToggle = "";
-        themeButton.innerHTML = '<span data-theme-icon aria-hidden="true">☾</span><span data-theme-label>Dark</span>';
-        const contactLink = nav.querySelector(".nav-cta");
-        nav.insertBefore(themeButton, contactLink || null);
-      }
+      });
     });
   }
 
